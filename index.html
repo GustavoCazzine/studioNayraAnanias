@@ -77,7 +77,14 @@
         <div class="cabecalho__container">
             
             <a href="#" class="logo-link">
-                <img src="assets/img/logo_nayra.avif" alt="Logo Nayra Ananias" class="cabecalho__logo">
+                <img src="assets/img/logo_nayra.avif" 
+                            srcset="assets/img/logo_nayra_mobile.avif 480w, 
+                                    assets/img/logo_nayra.avif 800w"
+                            sizes="(max-width: 900px) 100vw, 500px"
+                            alt="Detalhe de cílios perfeitos" 
+                            width="500" 
+                            height="400" 
+                            loading="lazy">
             </a>
 
             <nav class="cabecalho__nav" id="cabecalho-nav">
@@ -228,7 +235,15 @@
             <div class="controle_geral">
                 
                 <div class="educadora__intro">
-                    <img src="assets/img/cursos/foto_Cursos.avif" alt="Foto de Nayra Ananias como educadora" class="educadora__foto">
+                    <img src="assets/img/cursos/foto_Cursos.avif" 
+                        srcset="assets/img/cursos/foto_Cursos_mobile.avif 480w, 
+                                assets/img/cursos/foto_Cursos.avif 800w"
+                        sizes="(max-width: 768px) 90vw, 400px"
+                        alt="Nayra Ananias Especialista" 
+                        class="secao-principal__foto" 
+                        width="400" 
+                        height="400"
+                        fetchpriority="high">
                     <div class="educadora__texto">
                         <h2 class="cursos__titulo texto-com-gradiente">Transforme sua Paixão em Carreira</h2>
                         <p class="container__conteudo__descricao">
