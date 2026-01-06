@@ -613,7 +613,7 @@ section {
 }
 
 /* ==========================================================================
-   8. SEÇÃO CATÁLOGO (CARROSSEL + TOGGLE)
+   8. SEÇÃO CATÁLOGO (CARROSSEL + CARD PREMIUM)
    ========================================================================== */
 .catalogo {
     width: 100%;
@@ -643,57 +643,52 @@ section {
     text-align: center;
 }
 
-/* --- NOVO: Estilos do Interruptor (Toggle) --- */
+/* --- Interruptor (Toggle) --- */
 .toggle-container {
     position: relative;
     display: inline-flex;
-    background-color: #EAE3D9; /* Bege um pouco mais escuro para contraste */
+    background-color: #EAE3D9;
     border-radius: 50px;
-    padding: 4px; /* Espaço entre a borda e a pílula */
-    box-shadow: inset 0 2px 6px rgba(0,0,0,0.08); /* Profundidade interna */
+    padding: 4px;
+    box-shadow: inset 0 2px 6px rgba(0,0,0,0.08);
     margin-top: var(--espacamento-medio);
     margin-bottom: var(--espacamento-grande);
-    cursor: pointer; /* Indica que é clicável */
+    cursor: pointer;
 }
 
 .toggle-bg {
     position: absolute;
-    top: 4px;
-    left: 4px;
-    width: calc(50% - 4px); /* Metade exata menos o padding */
+    top: 4px; left: 4px;
+    width: calc(50% - 4px);
     height: calc(100% - 8px);
-    background-color: var(--cor-vinho); /* CORRIGIDO: Cor sólida */
+    background-color: var(--cor-vinho);
     border-radius: 50px;
-    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Efeito elástico */
+    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
     z-index: 1;
-    box-shadow: 0 4px 10px rgba(140, 31, 31, 0.25); /* Sombra suave vinho */
+    box-shadow: 0 4px 10px rgba(140, 31, 31, 0.25);
 }
 
 .toggle-item {
     position: relative;
-    z-index: 2; /* Fica acima da pílula */
+    z-index: 2;
     background: transparent;
     border: none;
-    width: 130px; /* Largura fixa para garantir alinhamento */
+    width: 130px;
     padding: 12px 0;
     font-family: var(--fonte-corpo);
     font-size: 0.95rem;
     font-weight: 700;
-    color: #6b6657; /* Cor do texto inativo (Bege escuro/Cinza) */
+    color: #6b6657;
     cursor: pointer;
     transition: color 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    outline: none; /* Remove borda azul de clique */
 }
 
 .toggle-item.ativo { color: var(--cor-fundo-branco); }
-
-/* Movimento do fundo baseado no atributo data-active */
 .toggle-container[data-active="cilios"] .toggle-bg { transform: translateX(100%); }
 .toggle-container[data-active="cilios"] .toggle-item:first-child { color: var(--cor-texto-neutro); }
 .toggle-container[data-active="cilios"] .toggle-item:last-child { color: var(--cor-fundo-branco); }
-
 
 /* --- Wrapper do Carrossel --- */
 .carrossel-wrapper {
@@ -703,7 +698,6 @@ section {
     margin: 0 auto;
 }
 
-/* --- Trilho do Carrossel --- */
 .catalogo__carrossel {
     display: flex;
     overflow-x: auto;
@@ -714,21 +708,12 @@ section {
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    cursor: grab;
-    user-select: none;
 }
 .catalogo__carrossel::-webkit-scrollbar { display: none; }
 
-.catalogo__carrossel.active {
-    cursor: grabbing;
-    cursor: -webkit-grabbing;
-    scroll-behavior: auto;
-    scroll-snap-type: none;
-}
-
-/* --- Card Visual Novo --- */
+/* --- CARD VISUAL NOVO (Corrigido) --- */
 .catalogo__card {
-    flex: 0 0 85%;
+    flex: 0 0 85%; /* Mobile */
     max-width: 340px;
     scroll-snap-align: center;
     background-color: var(--cor-fundo-branco);
@@ -741,53 +726,69 @@ section {
     flex-direction: column;
 }
 
-/* ==========================================================================
-   ADICIONE ISSO NA SEÇÃO 8 (CATÁLOGO) PARA CORRIGIR AS IMAGENS
-   ========================================================================== */
-
-/* Define o tamanho da caixa da imagem */
-.catalogo__imagem-box {
-    width: 100%;
-    height: 260px; /* Altura fixa para alinhar todos os cards */
-    overflow: hidden;
-    border-radius: 20px 20px 0 0; /* Arredonda só em cima */
-    position: relative;
-}
-
-/* A Mágica do Object-Fit: Isso impede a imagem de esticar */
-.catalogo__imagem-box img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Corta o excesso sem deformar a foto */
-    object-position: center;
-    transition: transform 0.5s ease;
-}
-
-/* Efeito de Zoom suave ao passar o mouse */
-.catalogo__card:hover .catalogo__imagem-box img {
-    transform: scale(1.1);
-}
-
 .catalogo__card:hover {
     transform: translateY(-5px) scale(1.02);
     box-shadow: 0 15px 40px rgba(0,0,0,0.12);
 }
-.catalogo__card.destacado {
-    transform: scale(1.03);
-    z-index: 1;
+
+/* --- 1. Caixa da Imagem (NOVO: Corrige esticamento e permite tags) --- */
+.catalogo__imagem-box {
+    width: 100%;
+    height: 260px; /* Altura fixa */
+    position: relative; /* Para as tags ficarem em cima */
+    overflow: hidden;
+    border-radius: 20px 20px 0 0;
 }
 
+.catalogo__imagem-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* A Mágica: não estica a foto */
+    object-position: center;
+    transition: transform 0.5s ease;
+    display: block;
+}
+
+.catalogo__card:hover .catalogo__imagem-box img {
+    transform: scale(1.1); /* Zoom suave */
+}
+
+/* --- 2. Tags Flutuantes (NOVO: Igual ao seu print) --- */
+.tags-container-overlay {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    display: flex;
+    gap: 6px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.tag-overlay {
+    background-color: #ffffff;
+    color: var(--cor-texto-titulo);
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 50px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    letter-spacing: 0.5px;
+}
+
+/* --- 3. Conteúdo e Botão --- */
 .catalogo__card__conteudo {
-    padding: 1.5rem;
+    padding: 1.5rem 1.5rem 2rem;
     display: flex;
     flex-direction: column;
-    text-align: center; /* Centralizado */
+    align-items: center;
+    text-align: center;
     flex-grow: 1;
 }
 
 .catalogo__card__titulo {
     font-family: var(--fonte-titulo);
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     color: var(--cor-vinho);
     margin-bottom: 0.5rem;
 }
@@ -796,13 +797,25 @@ section {
     font-size: 0.95rem;
     color: #666;
     line-height: 1.5;
-    margin-bottom: 1.2rem;
-    flex-grow: 1;
+    margin-bottom: 1.5rem;
+    /* Limita linhas para não ficar gigante */
+    display: -webkit-box;
+    -webkit-line-clamp: 3; 
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Botão Específico do Catálogo */
+.catalogo-btn {
+    width: 90%;
+    padding: 0.9rem 0;
+    font-size: 0.85rem;
+    box-shadow: 0 5px 15px rgba(140, 31, 31, 0.2);
 }
 
 /* --- Setas de Navegação --- */
 .carrossel-btn {
-    display: none; /* Mobile: Escondido */
+    display: none;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -1894,4 +1907,3 @@ section {
 .whatsapp-tooltip.fade-out {
     opacity: 0; transform: translateY(10px); transition: opacity 0.2s ease-out, transform 0.2s ease-out;
 }
-

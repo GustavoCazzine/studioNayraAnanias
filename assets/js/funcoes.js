@@ -373,17 +373,17 @@ function alternarServico(tipo) {
 // ===================================================================
 // FUNÇÃO: RENDERIZAR CATÁLOGO (CARROSSEL) - CORRIGIDA
 // ===================================================================
+// ===================================================================
+// FUNÇÃO: RENDERIZAR CATÁLOGO (VISUAL PREMIUM RESTAURADO)
+// ===================================================================
 function mostrarServicos(tipo) {
     const container = document.getElementById('catalogo-carrossel');
     const botoes = document.querySelectorAll('.toggle-item');
     const toggleContainer = document.querySelector('.toggle-container');
     
-    if (!container || !botoes.length || !toggleContainer) {
-        console.error("Elementos do catálogo não encontrados.");
-        return;
-    }
+    if (!container || !botoes.length || !toggleContainer) return;
 
-    // 1. Atualiza visual dos botões (Toggle)
+    // 1. Lógica do Toggle (Botões)
     botoes.forEach(btn => btn.classList.remove('ativo'));
     if (tipo === 'sobrancelhas') {
         botoes[0].classList.add('ativo');
@@ -393,32 +393,30 @@ function mostrarServicos(tipo) {
         toggleContainer.setAttribute('data-active', 'cilios');
     }
 
-    // 2. Seleciona a lista de dados correta
     const lista = tipo === 'sobrancelhas' ? servicosSobrancelhas : servicosCilios;
 
-    // 3. Limpa e Renderiza
     container.innerHTML = '';
-    
-    // Adiciona classe para animação de fade-in suave na troca
     container.style.opacity = 0;
     setTimeout(() => { container.style.opacity = 1; }, 200);
 
     lista.forEach(servico => {
-        // --- A MÁGICA DAS IMAGENS ---
-        // Cria o caminho da imagem mobile automaticamente
+        // Otimização de Imagem
         const imgMobile = servico.imagem.replace('.avif', '_mobile.avif');
-
-        // --- A MÁGICA DOS LINKS CENTRALIZADOS ---
-        const textoZap = `Olá, Nayra! Gostaria de saber mais sobre o procedimento: ${servico.titulo}`;
-        // Usa a configuração global se existir, senão usa um fallback seguro
-        const linkZap = (typeof CONFIG_SITE !== 'undefined' && CONFIG_SITE.gerarLinkZap) 
+        
+        // Link Centralizado
+        const textoZap = `Olá, Nayra! Gostaria de saber mais sobre: ${servico.titulo}`;
+        const linkZap = (typeof CONFIG_SITE !== 'undefined') 
                         ? CONFIG_SITE.gerarLinkZap(textoZap) 
-                        : `https://wa.me/5519999670165?text=${encodeURIComponent(textoZap)}`;
+                        : `https://wa.me/5519999670165`;
+
+        // Gera as Tags (Apenas as 2 primeiras para não poluir a foto)
+        const tagsHTML = servico.caracteristicas.slice(0, 2).map(tag => 
+            `<span class="tag-overlay">${tag}</span>`
+        ).join('');
 
         const card = document.createElement('div');
-        card.className = 'catalogo__card';
+        card.className = 'catalogo__card'; // Mantém a classe base
         
-        // --- HTML CORRIGIDO COM AS CLASSES CERTAS DO CSS ---
         card.innerHTML = `
             <div class="catalogo__imagem-box">
                 <img 
@@ -430,21 +428,18 @@ function mostrarServicos(tipo) {
                     width="350"
                     height="260"
                 >
+                <div class="tags-container-overlay">
+                    ${tagsHTML}
+                </div>
             </div>
 
             <div class="catalogo__card__conteudo">
                 <h3 class="catalogo__card__titulo">${servico.titulo}</h3>
                 <p class="catalogo__card__descricao">${servico.descricao}</p>
                 
-                <div class="catalogo__tags">
-                    ${servico.caracteristicas.map(tag => `<span>${tag}</span>`).join('')}
-                </div>
-
-                <div class="catalogo__card__acao" style="margin-top: auto; padding-top: 1.5rem;">
-                    <a href="${linkZap}" target="_blank" class="catalogo__cta">
-                        Agendar <i class="fas fa-arrow-right" style="margin-left: 8px; font-size: 0.9em;"></i>
-                    </a>
-                </div>
+                <a href="${linkZap}" target="_blank" class="botao-principal catalogo-btn">
+                    AGENDAR HORÁRIO
+                </a>
             </div>
         `;
         container.appendChild(card);
