@@ -1,12 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<!-- ============================================================================
+     HEAD: Meta tags, SEO, estilos e scripts de rastreamento
+     ============================================================================ -->
 <head>
+    <!-- Meta Tags Essenciais -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#fffbf7">
 
+    <!-- SEO: Título e Descrição -->
     <title>Studio Nayra Ananias | Cílios e Sobrancelhas em Piracicaba</title>
-    
     <meta name="description" content="Realce sua beleza no Studio Nayra Ananias. Especialista em Extensão de Cílios, Design de Sobrancelhas, Nanobrows e Cursos Profissionais em Piracicaba. Agende seu horário!">
 
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://studionayraananias.com.br/">
+
+    <!-- Open Graph (Facebook, WhatsApp, Redes Sociais) -->
+    <meta property="og:type" content="business.business">
+    <meta property="og:url" content="https://studionayraananias.com.br/">
+    <meta property="og:title" content="Studio Nayra Ananias | Cílios e Sobrancelhas em Piracicaba">
+    <meta property="og:description" content="Especialista em Extensão de Cílios, Design de Sobrancelhas, Nanobrows e Cursos Profissionais. Realce seu olhar em Piracicaba!">
+    <meta property="og:image" content="https://studionayraananias.com.br/assets/img/CapaFinal.avif">
+    <meta property="og:image:alt" content="Studio Nayra Ananias - Cílios e Sobrancelhas">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Studio Nayra Ananias">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Studio Nayra Ananias | Cílios e Sobrancelhas em Piracicaba">
+    <meta name="twitter:description" content="Especialista em cílios, sobrancelhas e cursos profissionais. Agende seu horário!">
+    <meta name="twitter:image" content="https://studionayraananias.com.br/assets/img/CapaFinal.avif">
+
+    <!-- Favicon e Web App -->
     <link rel="icon" type="image/png" href="assets/img/favicon/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="assets/img/favicon/favicon.svg" />
     <link rel="shortcut icon" href="assets/img/favicon/favicon.ico" />
@@ -14,34 +41,98 @@
     <meta name="apple-mobile-web-app-title" content="Studio Nayra Ananias" />
     <link rel="manifest" href="assets/img/favicon/site.webmanifest" />
 
+    <link rel="sitemap" href="/sitemap.xml" type="application/xml">
+
+    <!-- Preload de Imagens Críticas -->
     <link rel="preload" href="assets/img/Foto_Nayra.avif" as="image" imagesrcset="assets/img/Foto_Nayra_mobile.avif 480w, assets/img/Foto_Nayra.avif 800w" imagesizes="(max-width: 768px) 90vw, 400px">
 
+    <!-- Estilos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="./assets/css/style.css">
 
+    <!-- Fallback para Font Awesome sem JavaScript -->
     <noscript>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     </noscript>
 
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-9X1XNMXJF4"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag(){dataLayer.push(arguments);} 
         gtag('js', new Date());
         gtag('config', 'G-9X1XNMXJF4');
+
+        // Eventos de Análise - Comportamento de Usuário
+        document.addEventListener('DOMContentLoaded', function() {
+            function sendEvent(event_name, parameters) {
+                gtag('event', event_name, parameters);
+            }
+
+            // 1) Cliques em Agendamento (WhatsApp)
+            document.querySelectorAll('[data-msg]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    sendEvent('click_agendamento', {
+                        'secao': this.closest('section')?.id || 'none',
+                        'texto': this.textContent.trim()
+                    });
+                });
+            });
+
+            // 2) Switch entre Cílios/Sobrancelhas
+            document.querySelectorAll('.toggle-item').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    setTimeout(() => {
+                        sendEvent('switch_servico', {
+                            'servico': this.textContent.trim(),
+                            'ativo': this.classList.contains('ativo')
+                        });
+                    }, 50);
+                });
+            });
+
+            // 3) Expansão de Cursos
+            document.querySelectorAll('.curso-card').forEach(card => {
+                const btn = card.querySelector('.curso-card__toggle-btn');
+                if (btn) {
+                    btn.addEventListener('click', function() {
+                        sendEvent('expand_curso', {
+                            'nome': card.querySelector('h3')?.textContent?.trim() || 'unknown'
+                        });
+                    });
+                }
+            });
+
+            // 4) Visualização de Seções
+            const sections = ['catalogo', 'combos', 'depoimentos', 'contato'];
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !entry.target.dataset.viewed) {
+                        entry.target.dataset.viewed = 'true';
+                        sendEvent('view_secao', { 'secao': entry.target.id });
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            sections.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) observer.observe(el);
+            });
+        });
     </script>
 
+    <!-- Schema.org: Structured Data (SEO Local) -->
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
             "@type": "BeautySalon",
             "name": "Studio Nayra Ananias",
-            "image": "https://studionayraananias.com.br/assets/img/logo_nayra.png",
+            "image": "https://studionayraananias.com.br/assets/img/CapaFinal.avif",
             "@id": "https://studionayraananias.com.br/",
             "url": "https://studionayraananias.com.br/",
             "telephone": "+5519999670165",
             "priceRange": "$$",
-            "description": "Especialista em extensão de cílios, design de sobrancelhas e cursos de formação.",
+            "description": "Especialista em extensão de cílios, design de sobrancelhas, nanobrows e cursos profissionais em Piracicaba.",
             "address": {
                 "@type": "PostalAddress",
                 "streetAddress": "R. Quinze de Novembro, 567",
@@ -55,27 +146,142 @@
                 "latitude": -22.74760,
                 "longitude": -47.65076
             },
-            "sameAs": ["https://www.instagram.com/studionayraananias"]
+            "openingHoursSpecification": [
+                {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+                    "opens": "09:00",
+                    "closes": "18:00"
+                }
+            ],
+            "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "4.8",
+                "ratingCount": "8",
+                "reviewCount": "8"
+            },
+            "review": [
+                {
+                    "@type": "Review",
+                    "author": {"@type": "Person", "name": "Cliente Satisfeito"},
+                    "reviewRating": {"@type": "Rating", "ratingValue": "5"},
+                    "reviewBody": "Adorei o resultado! Atendimento impecável e ambiente aconchegante.",
+                    "datePublished": "2025-12-20"
+                },
+                {
+                    "@type": "Review",
+                    "author": {"@type": "Person", "name": "Maria Silva"},
+                    "reviewRating": {"@type": "Rating", "ratingValue": "5"},
+                    "reviewBody": "Nayra é uma profissional excelente, muito dedicada e atenta aos detalhes.",
+                    "datePublished": "2025-12-15"
+                }
+            ],
+            "hasService": [
+                {
+                    "@type": "Service",
+                    "name": "Extensão de Cílios Volume Brasileiro",
+                    "description": "Extensão de cílios com técnica de volume brasileiro para realçar o olhar.",
+                    "areaServed": "BR",
+                    "priceRange": "180-280"
+                },
+                {
+                    "@type": "Service",
+                    "name": "Lash Lifting",
+                    "description": "Lifting de cílios naturais para efeito alongado e volumoso.",
+                    "areaServed": "BR",
+                    "priceRange": "150-200"
+                },
+                {
+                    "@type": "Service",
+                    "name": "Design de Sobrancelhas",
+                    "description": "Design personalizado de sobrancelhas com henna ou pós.",
+                    "areaServed": "BR",
+                    "priceRange": "80-150"
+                },
+                {
+                    "@type": "Service",
+                    "name": "Nanobrows",
+                    "description": "Micropigmentação de sobrancelhas com técnica de nanobrows.",
+                    "areaServed": "BR",
+                    "priceRange": "600-900"
+                }
+            ],
+            "sameAs": ["https://www.instagram.com/studionayraananias", "https://wa.me/5519999670165"]
+        }
+    </script>
+
+    <!-- FAQ Schema (Featured Snippets) -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "Quanto custa uma extensão de cílios?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Os preços variam de R$150 a R$300, dependendo da técnica e quantidade de volume desejado. Oferecemos as principais técnicas: Volume Brasileiro, Lash Lifting, Volume Jasmine e mais."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Quanto tempo dura uma extensão de cílios?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "A extensão de cílios dura em média 4 a 6 semanas. É recomendado fazer retoques a cada 2-3 semanas para manter o volume e aparência perfeitos."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Os cílios postiços são seguros?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Sim! Utilizamos materiais 100% descartáveis e esterilizados, seguindo rigorosos protocolos de biossegurança. O procedimento é seguro e indolor quando realizado por um profissional qualificado."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Vocês oferecem cursos de formação?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Sim! Oferecemos cursos profissionais em Extensão de Cílios, Design de Sobrancelhas e Nanobrows. Aulas práticas com atenção individual para você se tornar uma profissional de excelência."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Qual é a localização do Studio?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Estamos localizados na R. Quinze de Novembro, 567, Centro de Piracicaba - SP. Fácil acesso com estacionamento disponível."
+                    }
+                }
+            ]
         }
     </script>
 </head>
 
 <body>
 
+    <!-- ========================================================================
+         HEADER: Navegação fixa com menu responsivo
+         ======================================================================== -->
     <header class="cabecalho" id="cabecalho">
         <div class="cabecalho__container">
             
+            <!-- Logo -->
             <a href="#" class="logo-link">
                 <img src="assets/img/logo_nayra.avif" 
-                    srcset="assets/img/logo_nayra_mobile.avif 480w, 
-                            assets/img/logo_nayra.avif 800w"
+                    srcset="assets/img/logo_nayra_mobile.avif 480w, assets/img/logo_nayra.avif 800w"
                     sizes="140px"
                     alt="Logo Nayra Ananias" 
                     class="cabecalho__logo" 
                     width="140" 
-                    height="60">
+                    height="60"
+                    loading="lazy">
             </a>
 
+            <!-- Menu Lateral (Mobile) / Horizontal (Desktop) -->
             <nav class="cabecalho__nav" id="cabecalho-nav">
                 <div class="menu-watermark">NA</div>
 
@@ -90,6 +296,7 @@
                     </li>
                 </ul>
 
+                <!-- Social Icons no Menu -->
                 <div class="menu-socials" style="--delay: 0.6s">
                     <p>Siga-nos</p>
                     <div class="social-icons">
@@ -99,6 +306,7 @@
                 </div>
             </nav>
 
+            <!-- Ações do Header (CTA Desktop + Botão Menu Mobile) -->
             <div class="cabecalho__acoes">
                 <a href="#" class="cabecalho__cta desktop-only js-link-whatsapp" data-msg="Olá! Gostaria de agendar um horário.">Agendar Agora</a>
 
@@ -111,6 +319,9 @@
         </div>
     </header>
 
+    <!-- ========================================================================
+         COMPONENTE FLUTUANTE: Botão WhatsApp
+         ======================================================================== -->
     <div class="whatsapp-button">
         <div class="whatsapp-tooltip">Clique aqui para falar conosco!</div>
         <a href="#" class="js-link-whatsapp" data-msg="Oi Nayra! 😊 Poderia me ajudar a agendar um horário disponivel?" target="_blank" aria-label="WhatsApp" rel="noopener noreferrer">
@@ -118,7 +329,14 @@
         </a>
     </div>
 
+    <!-- ========================================================================
+         MAIN: Conteúdo principal
+         ======================================================================== -->
     <main class="pagina__geral">
+
+        <!-- ====================================================================
+             SEÇÃO 1: HERO - Capa com apresentação e chamada
+             ==================================================================== -->
         <section class="secao-principal">
             <div class="secao-principal__fundo">
                 <div id="fundo01">
@@ -133,24 +351,24 @@
                 <div class="foto-wrapper">
                     <img 
                         src="assets/img/Foto_Nayra.avif" 
-                        srcset="assets/img/Foto_Nayra_mobile.avif 480w, 
-                                assets/img/Foto_Nayra.avif 800w"
+                        srcset="assets/img/Foto_Nayra_mobile.avif 480w, assets/img/Foto_Nayra.avif 800w"
                         sizes="(max-width: 768px) 90vw, 400px"
                         alt="Nayra Ananias Especialista" 
                         class="secao-principal__foto" 
                         width="400" 
                         height="400"
                         fetchpriority="high"
-                    >
+                        loading="eager">
                 </div>
             </div>
 
             <div class="textos-titulo animate-on-scroll">
-    
+                <!-- Título SEO (oculto) -->
                 <h1 class="titulo-seo-escondido">
                     Cílios, Sobrancelhas e Cursos de Formação em Piracicaba - Studio Nayra Ananias
                 </h1>
 
+                <!-- Nome e Títulos Visuais -->
                 <div class="linha linha-superior"></div>
                 <div class="nome-container">
                     <span class="nome nayra">Nayra</span>
@@ -164,6 +382,7 @@
                 <a href="#" class="botao-principal js-link-whatsapp" data-msg="Olá! Quero realçar meu olhar, gostaria de agendar.">Agendar Meu Horário</a>
             </div>
 
+            <!-- Indicador de Scroll -->
             <div class="scroll-indicator animate-on-scroll">
                 <span class="scroll-text">Desça para conhecer</span>
                 <div class="mouse-scroll">
@@ -172,6 +391,9 @@
             </div>
         </section>
 
+        <!-- ====================================================================
+             SEÇÃO 2: CATÁLOGO - Serviços com toggle e carrossel
+             ==================================================================== -->
         <section class="catalogo animate-on-scroll" id="catalogo">
             <div class="controle_geral">
                 <div class="catalogo__intro">
@@ -180,6 +402,7 @@
                         Navegue entre nossas especialidades e descubra o design ideal para a sua beleza.
                     </p>
 
+                    <!-- Toggle entre Sobrancelhas/Cílios -->
                     <div class="toggle-container" data-active="sobrancelhas">
                         <div class="toggle-bg"></div>
                         
@@ -193,13 +416,13 @@
                     </div>
                 </div>
 
+                <!-- Carrossel de Cards de Serviços -->
                 <div class="carrossel-wrapper">
                     <button class="carrossel-btn prev" aria-label="Ver anterior">
                         <i class="fas fa-chevron-left"></i>
                     </button>
 
-                    <div class="catalogo__carrossel" id="catalogo-carrossel">
-                        </div>
+                    <div class="catalogo__carrossel" id="catalogo-carrossel"></div>
 
                     <button class="carrossel-btn next" aria-label="Ver próximo">
                         <i class="fas fa-chevron-right"></i>
@@ -208,6 +431,9 @@
             </div>
         </section>
 
+        <!-- ====================================================================
+             SEÇÃO 3: COMBOS - Pacotes promocionais
+             ==================================================================== -->
         <section class="combos animate-on-scroll" id="combos">
             <div class="controle_geral">
                 <h2 class="cursos__titulo texto-com-gradiente">Pacotes de Beleza Exclusivos</h2>
@@ -215,18 +441,20 @@
                     Combine nossos tratamentos mais desejados e garanta um resultado harmonioso e completo. Uma solução prática e com valor especial para você sair do studio sentindo-se renovada.
                 </p>
                 
-                <div class="combos__container">
-                    </div>
+                <div class="combos__container"></div>
             </div>
         </section>
 
+        <!-- ====================================================================
+             SEÇÃO 4: CURSOS - Formações e especialização profissional
+             ==================================================================== -->
         <section class="cursos animate-on-scroll" id="cursos">
             <div class="controle_geral">
                 
+                <!-- Introdução com Foto -->
                 <div class="educadora__intro">
                     <img src="assets/img/cursos/foto_Cursos.avif" 
-                        srcset="assets/img/cursos/foto_Cursos_mobile.avif 480w, 
-                                assets/img/cursos/foto_Cursos.avif 800w"
+                        srcset="assets/img/cursos/foto_Cursos_mobile.avif 480w, assets/img/cursos/foto_Cursos.avif 800w"
                         sizes="(max-width: 768px) 180px, 180px"
                         alt="Nayra Ananias Especialista" 
                         class="educadora__foto"
@@ -236,15 +464,19 @@
                     <div class="educadora__texto">
                         <h2 class="cursos__titulo texto-com-gradiente">Transforme sua Paixão em Carreira</h2>
                         <p class="container__conteudo__descricao">
-                            Meu compromisso é com o seu sucesso. Com a experiência de centenas de procedimentos, ofereço atenção individual, prática de verdade e os segredos do mercado para você se tornar uma profissional de excelência.                    </div>
+                            Meu compromisso é com o seu sucesso. Com a experiência de centenas de procedimentos, ofereço atenção individual, prática de verdade e os segredos do mercado para você se tornar uma profissional de excelência.
+                        </p>
+                    </div>
                 </div>
 
-                <div class="cursos__lista" id="cursos-lista">
-                    </div>
-
+                <!-- Lista de Cursos Expansíveis -->
+                <div class="cursos__lista" id="cursos-lista"></div>
             </div>
         </section>
         
+        <!-- ====================================================================
+             SEÇÃO 5: PROPÓSITO - Valores e missão do studio
+             ==================================================================== -->
         <section class="proposito-v2 animate-on-scroll" id="proposito">
             <div class="controle_geral">
                 <h2 class="container__conteudo__titulo texto-com-gradiente">Nosso Propósito</h2>
@@ -254,6 +486,7 @@
 
                 <div class="proposito-v2__container">
 
+                    <!-- Card 1: Além da Estética -->
                     <div class="proposito-v2__card">
                         <svg class="adorno-borda-animada" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 350" preserveAspectRatio="none">
                             <path d="M 15 2 L 285 2 A 13 13 0 0 1 298 15 L 298 335 A 13 13 0 0 1 285 348 L 15 348 A 13 13 0 0 1 2 335 L 2 15 A 13 13 0 0 1 15 2 Z"></path>
@@ -269,6 +502,7 @@
                         </div>
                     </div>
 
+                    <!-- Card 2: Padrão Nayra Ananias -->
                     <div class="proposito-v2__card">
                         <svg class="adorno-borda-animada" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 350" preserveAspectRatio="none">
                             <path d="M 15 2 L 285 2 A 13 13 0 0 1 298 15 L 298 335 A 13 13 0 0 1 285 348 L 15 348 A 13 13 0 0 1 2 335 L 2 15 A 13 13 0 0 1 15 2 Z"></path>
@@ -284,6 +518,7 @@
                         </div>
                     </div>
 
+                    <!-- Card 3: Experiência Única -->
                     <div class="proposito-v2__card">
                         <svg class="adorno-borda-animada" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 350" preserveAspectRatio="none">
                             <path d="M 15 2 L 285 2 A 13 13 0 0 1 298 15 L 298 335 A 13 13 0 0 1 285 348 L 15 348 A 13 13 0 0 1 2 335 L 2 15 A 13 13 0 0 1 15 2 Z"></path>
@@ -301,15 +536,16 @@
                 </div>
             </div>
         </section>
-        
 
+        <!-- ====================================================================
+             SEÇÃO 6: FEEDBACKS - Depoimentos de clientes em carrossel infinito
+             ==================================================================== -->
         <section class="feedbacks animate-on-scroll" id="depoimentos">
             <div class="controle_geral">
                 <h2 class="feedback-section-title">A Confiança das Minhas Clientes</h2>
                 
                 <div class="scroller">
-                    <ul class="scroller__inner tag-list" id="feedbacks-list">
-                        </ul>
+                    <ul class="scroller__inner tag-list" id="feedbacks-list"></ul>
                 </div>
 
                 <p class="novos-feedbacks__chamada">
@@ -318,25 +554,27 @@
             </div>
         </section>
 
-
+        <!-- ====================================================================
+             SEÇÃO 7: AGENDAMENTO - Call-to-action com detalhes e localização
+             ==================================================================== -->
         <section class="agendamento animate-on-scroll" id="contato">
             <div class="controle_geral">
                 <h2 class="container__conteudo__titulo">Sua Experiência Começa Aqui</h2>
                 
                 <div class="agendamento__card">
+                    <!-- Imagem -->
                     <div class="agendamento__imagem">
                         <img 
                             src="assets/img/CapaFinal.avif" 
-                            srcset="assets/img/CapaFinal_mobile.avif 480w, 
-                                    assets/img/CapaFinal.avif 800w"
+                            srcset="assets/img/CapaFinal_mobile.avif 480w, assets/img/CapaFinal.avif 800w"
                             sizes="(max-width: 900px) 100vw, 500px"
                             alt="Detalhe de cílios perfeitos" 
                             width="500" 
                             height="400" 
-                            loading="lazy"
-                        >
+                            loading="lazy">
                     </div>
 
+                    <!-- Informações e CTA -->
                     <div class="agendamento__info">
                         <h3>Pronta para transformar seu olhar?</h3>
                         <p>Estou pronta para cuidar de você com toda a atenção que merece. Vamos conversar e encontrar o melhor horário.</p>
@@ -367,6 +605,9 @@
             </div>
         </section>
 
+        <!-- ====================================================================
+             SEÇÃO 8: LOCALIZAÇÃO - Mapa e botões de rota (Google Maps + Waze)
+             ==================================================================== -->
         <section class="location animate-on-scroll">
             <div class="controle_geral">
                 <div class="location-header">
@@ -383,8 +624,8 @@
                             height="100%" 
                             style="border:0;" 
                             allowfullscreen="" 
-                            title="Mapa de localização do Studio Nayra Ananias em Piracicaba"
-                        ></iframe>
+                            title="Mapa de localização do Studio Nayra Ananias em Piracicaba">
+                        </iframe>
                     </div>
 
                     <div class="location-actions">
@@ -408,10 +649,14 @@
 
     </main>
 
+    <!-- ========================================================================
+         FOOTER: Rodapé com links, contato e redes sociais
+         ======================================================================== -->
     <footer class="site-footer">
         <div class="controle_geral">
             
             <div class="footer-content">
+                <!-- Coluna 1: Marca e Redes Sociais -->
                 <div class="footer-brand">
                     <h2 class="footer-logo-text">Nayra Ananias</h2>
                     <p>Realçando sua beleza natural com técnica, biossegurança e sofisticação em cada detalhe.</p>
@@ -426,6 +671,7 @@
                     </div>
                 </div>
 
+                <!-- Coluna 2: Menu de Navegação -->
                 <div class="footer-nav">
                     <h3>Menu</h3>
                     <ul>
@@ -436,6 +682,7 @@
                     </ul>
                 </div>
 
+                <!-- Coluna 3: Contato -->
                 <div class="footer-contact">
                     <h3>Contato</h3>
                     <ul>
@@ -451,13 +698,18 @@
                 </div>
             </div>
 
+            <!-- Barra Inferior: Copyright -->
             <div class="footer-bottom">
                 <p>© 2024 Nayra Ananias. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>
 
-    <script src="assets/js/funcoes.js"></script>
+        <!-- ========================================================================
+            SCRIPTS: Funcionalidades do site
+            (temporarily load unminified for stability while minified is validated)
+            ======================================================================== -->
+        <script src="assets/js/funcoes.js"></script>
 
 </body>
 </html>

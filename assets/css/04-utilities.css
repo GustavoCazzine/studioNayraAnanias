@@ -1,0 +1,121 @@
+/* ==========================================================================
+   04. UTILITÁRIOS E ANIMAÇÕES
+   ========================================================================== */
+
+.container {
+    width: 100%;
+    max-width: var(--max-width-container);
+    margin: 0 auto;
+    padding: 0 var(--espacamento-medio);
+}
+
+.controle_geral {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1200px;
+    padding-left: var(--espacamento-lateral-mobile);
+    padding-right: var(--espacamento-lateral-mobile);
+}
+
+.text-center {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+section {
+    padding: var(--espacamento-secao) 0;
+}
+
+.pagina__geral section:first-of-type {
+    padding-top: 0;
+}
+
+/* --- Animação Scroll --- */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    will-change: opacity, transform;
+}
+
+.animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Acessibilidade: Redução de Movimento --- */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    .animate-on-scroll {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* --- Botões Principais --- */
+.botao-principal,
+.catalogo__cta a,
+.agendamento__link,
+.combo-card__cta,
+.curso-card .botao-principal {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--cor-vinho);
+    color: var(--cor-fundo-branco) !important;
+    font-family: var(--fonte-corpo);
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    border: 1px solid transparent;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 4px 15px rgba(140, 31, 31, 0.25);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.botao-principal:hover,
+.catalogo__cta a:hover,
+.agendamento__link:hover,
+.combo-card__cta:hover {
+    background: var(--cor-vinho-escuro);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(140, 31, 31, 0.35);
+}
+
+/* --- Botão Combo (Outline) --- */
+.combo-card__cta {
+    background: transparent;
+    color: var(--cor-vinho) !important;
+    border: 1px solid var(--cor-vinho);
+    box-shadow: none;
+}
+
+.combo-card__cta:hover {
+    background: var(--cor-vinho);
+    color: var(--cor-fundo-branco) !important;
+    border-color: var(--cor-vinho);
+}
+
+/* --- Botão Combo Destaque --- */
+.combo-card.destaque .combo-card__cta {
+    background: var(--cor-vinho);
+    color: var(--cor-fundo-branco) !important;
+    box-shadow: 0 4px 15px rgba(140, 31, 31, 0.3);
+}
+
+.combo-card.destaque .combo-card__cta:hover {
+    background: var(--cor-vinho-escuro);
+    transform: translateY(-3px);
+}

@@ -1,52 +1,53 @@
-/* =================================================================== */
-/* ======================= 1. DADOS DO SITE ========================== */
-/* =================================================================== */
+/* ========================================================================== */
+/* ==================== CONFIGURAÇÕES E DADOS DO SITE ==================== */
+/* ========================================================================== */
 
+/**
+ * CONFIG_SITE
+ * Configurações centralizadas: redes sociais, endereços e links
+ */
 const CONFIG_SITE = {
     social: {
-        whatsapp: "5519999670165", // Apenas números
-        instagram: "https://instagram.com/nayraananias", // Seu link real
-        maps_google: "https://maps.app.goo.gl/6kBuc2u9k7DqHvrP9", // Link curto do Google Maps
+        whatsapp: "5519999670165",
+        instagram: "https://instagram.com/nayraananias",
+        maps_google: "https://maps.app.goo.gl/6kBuc2u9k7DqHvrP9",
         waze: "https://waze.com/ul?q=Rua+Quinze+de+Novembro+567+Piracicaba"
     },
     enderecos: {
         fisico: "R. XV de Novembro, 567 - Centro, Piracicaba - SP",
         telefone_visivel: "(19) 99996-7016"
     },
-    // Função auxiliar para gerar link do WhatsApp com texto dinâmico
     gerarLinkZap: function(texto = "") {
         const mensagem = texto ? `?text=${encodeURIComponent(texto)}` : "";
         return `https://wa.me/${this.social.whatsapp}${mensagem}`;
     }
 };
 
-// --- Dados: Seção Catálogo ---
+/* ========================================================================== */
+/* ========================== DADOS: SERVIÇOS ========================== */
+/* ========================================================================== */
+
 const servicosSobrancelhas = [
     {
         titulo: "Brow Lamination",
-        // Antes: Descrição técnica longa.
-        // Agora: Foco no resultado visual e tendência.
         descricao: "A tendência global das passarelas. Fios encorpados, alinhados para cima e com aquele efeito 'wild' e volumoso que dura semanas.",
         caracteristicas: ["Super Volume", "Efeito Fashion", "Nutrição"],
         imagem: "assets/img/servicos/sobrancelhas/BrowLamination.avif"
     },
     {
         titulo: "Nanobrows",
-        // Foco na dor (falhas) e no desejo (naturalidade imperceptível).
         descricao: "Esqueça a maquiagem diária. Fios desenhados artisticamente na pele para corrigir falhas com uma naturalidade tão alta que ninguém diz que é micro.",
         caracteristicas: ["Hiper-realismo", "Sem Dor", "Longa Duração"],
         imagem: "assets/img/servicos/sobrancelhas/Nanobrows.avif"
     },
     {
         titulo: "Design com Henna",
-        // Foco na praticidade e definição imediata.
         descricao: "O equilíbrio perfeito entre cor e forma. Realçamos o desenho natural das suas sobrancelhas preenchendo falhas com um acabamento ombré sofisticado.",
         caracteristicas: ["Efeito Maquiagem", "Definição", "Durabilidade"],
         imagem: "assets/img/servicos/sobrancelhas/DesignHenna.avif"
     },
     {
         titulo: "Design Personalizado",
-        // Foco na exclusividade e arquitetura facial.
         descricao: "Não é apenas limpar fios. É um estudo de visagismo para criar a arquitetura perfeita que harmoniza, levanta e valoriza seus traços únicos.",
         caracteristicas: ["Visagismo", "Harmonia", "Spa dos Fios"],
         imagem: "assets/img/servicos/sobrancelhas/DesignPers.avif"
@@ -56,42 +57,40 @@ const servicosSobrancelhas = [
 const servicosCilios = [
     {
         titulo: "Lash Lifting",
-        // Foco na saúde do fio natural e liberdade da extensão.
         descricao: "Seus cílios naturais, na sua melhor versão. Curvatura intensa, hidratação profunda e coloração para um 'efeito rímel' sem manutenção complexa.",
         caracteristicas: ["100% Natural", "Tratamento", "Sem Manutenção"],
         imagem: "assets/img/servicos/cilios/LashLifting.avif"
     },
     {
         titulo: "Volume Moana",
-        // Foco na textura e no visual "molhado" (tendência).
         descricao: "Leveza tropical. Uma técnica que mistura texturas para criar o cobiçado 'efeito molhado' (wet look), entregando volume sem perder a delicadeza.",
         caracteristicas: ["Efeito Molhado", "Textura", "Leveza"],
         imagem: "assets/img/servicos/cilios/VolumeMoana.avif"
     },
     {
         titulo: "Efeito Fox Eyes",
-        // Foco na sensualidade e mudança no formato do olho.
         descricao: "O segredo do olhar delineado. Construção estratégica com fios mais longos no canto externo para um efeito lifting imediato, sensual e felino.",
         caracteristicas: ["Efeito Delineado", "Olhar Felino", "Lifting"],
         imagem: "assets/img/servicos/cilios/FoxEyses.avif"
     },
     {
         titulo: "Volume Brasileiro",
-        // Foco na retenção (durabilidade) e preenchimento.
         descricao: "O queridinho do Brasil. Fios tecnológicos em formato de Y que garantem um preenchimento preto intenso, ótima retenção e um olhar marcante.",
         caracteristicas: ["Retenção Alta", "Preto Intenso", "Volume Y"],
         imagem: "assets/img/servicos/cilios/VolumeBrasileiro.avif"
     },
     {
         titulo: "Volume Jasmine",
-        // Foco na sofisticação e estilo "Kardashian/Wispy".
         descricao: "Sofisticação com personalidade. Um design texturizado com 'picos' aparentes que cria um visual de boneca moderna, cheio de atitude.",
         caracteristicas: ["Estilo Wispy", "Sofisticado", "Texturizado"],
         imagem: "assets/img/servicos/cilios/VolumeJasmine.avif"
     }
 ];
 
-// --- Dados: Seção Feedbacks ---
+/* ========================================================================== */
+/* ========================== DADOS: FEEDBACKS ========================== */
+/* ========================================================================== */
+
 const slidesFeedbacks = [
     { 
         nome: "@brubsg2",
@@ -174,12 +173,14 @@ const slidesFeedbacks = [
     }
 ];
 
-// --- Dados: Seção Combos (Atualizado) ---
+/* ========================================================================== */
+/* ========================== DADOS: COMBOS ============================= */
+/* ========================================================================== */
+
 const combos = [
     {
         nome: "Combo Impacto Laminado",
         imagem: "assets/img/combos/Combo1.avif", 
-        // Copy focado em tendência e destaque
         descricao: "A escolha nº 1 das clientes. Une o volume intenso dos cílios à modernidade das sobrancelhas laminadas. Ideal para quem quer acordar pronta e impactante.",
         servicos: ["Volume Brasileiro", "Brow Lamination", "Bônus: Hidratação"],
         destaque: true,
@@ -188,7 +189,6 @@ const combos = [
     {
         nome: "Combo Moana Perfeito",
         imagem: "assets/img/combos/Combo2.avif", 
-        // Copy focado em naturalidade e charme
         descricao: "O equilíbrio exato entre charme e naturalidade. Um olhar marcante com efeito molhado e sobrancelhas desenhadas para harmonizar com seu rosto.",
         servicos: ["Volume Moana (Wet)", "Design com Henna", "Spa dos Fios"],
         destaque: false
@@ -196,14 +196,16 @@ const combos = [
     {
         nome: "Combo Lifting Total",
         imagem: "assets/img/combos/Combo3.avif",
-        // Copy focado em saúde e tratamento
         descricao: "Beleza natural potencializada. Curvamos seus cílios e alinhamos suas sobrancelhas mantendo a saúde dos fios. O verdadeiro 'Glow Up' sem artificios.",
         servicos: ["Lash Lifting", "Brow Lamination", "Nutrição Profunda"],
         destaque: false
     }
 ];
 
-// 1. DADOS ATUALIZADOS (COPYWRITING DE CARREIRA)
+/* ========================================================================== */
+/* ========================== DADOS: CURSOS ============================= */
+/* ========================================================================== */
+
 const cursos = [
     { 
         titulo: "Formação Lash Designer de Elite", 
@@ -243,10 +245,30 @@ const cursos = [
     }
 ];
 
-/* =================================================================== */
-/* =================== 2. UTILITÁRIOS GERAIS ========================= */
-/* =================================================================== */
+/* ========================================================================== */
+/* ================= UTILITÁRIOS E FUNÇÕES AUXILIARES ==================== */
+/* ========================================================================== */
 
+/**
+ * Debounce - Delay de execução para otimizar performance
+ * @param {Function} func - Função a ser executada
+ * @param {number} wait - Tempo de espera em ms
+ */
+function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+}
+
+/* ========================================================================== */
+/* ===================== COMPONENTES: HEADER ========================== */
+/* ========================================================================== */
+
+/**
+ * Inicializa cabeçalho responsivo com menu toggle
+ */
 function inicializarCabecalhoResponsivo() {
     const cabecalho = document.getElementById('cabecalho');
     const menuToggle = document.getElementById('menu-toggle');
@@ -266,12 +288,10 @@ function inicializarCabecalhoResponsivo() {
         });
     }
 
-    // Fecha ao clicar em um link
     navLinks.forEach(link => {
         link.addEventListener('click', toggleMenu);
     });
 
-    // Fecha ao clicar fora do menu (Opcional, mas boa prática)
     document.addEventListener('click', (e) => {
         const isClickInsideMenu = document.getElementById('cabecalho-nav').contains(e.target);
         const isClickOnToggle = menuToggle.contains(e.target);
@@ -293,6 +313,13 @@ function inicializarCabecalhoResponsivo() {
     onScroll();
 }
 
+/* ========================================================================== */
+/* =================== COMPONENTES: ANIMAÇÕES GLOBAIS =================== */
+/* ========================================================================== */
+
+/**
+ * Anima elementos ao entrar na viewport
+ */
 function inicializarAnimacoesDeScroll() {
     const animatedElements = document.querySelectorAll('.animate-on-scroll');
     if (!("IntersectionObserver" in window) || animatedElements.length === 0) {
@@ -312,6 +339,9 @@ function inicializarAnimacoesDeScroll() {
     animatedElements.forEach(element => observer.observe(element));
 }
 
+/**
+ * Botão WhatsApp flutuante que aparece ao scroll
+ */
 function inicializarBotaoWhatsApp() {
     const whatsappButton = document.querySelector('.whatsapp-button');
     const whatsappTooltip = document.querySelector('.whatsapp-tooltip');
@@ -334,31 +364,24 @@ function inicializarBotaoWhatsApp() {
             whatsappButton.classList.remove('visible');
         }
     }
-    
-    function debounce(func, wait) {
-        let timeout;
-        return function(...args) {
-            clearTimeout(timeout);
-            timeout = setTimeout(() => func.apply(this, args), wait);
-        };
-    }
 
     window.addEventListener('scroll', debounce(toggleWhatsAppButton, 100));
     toggleWhatsAppButton();
 }
 
-/* =================================================================== */
-/* ================== 3. LÓGICA DO CATÁLOGO (CARROSSEL) ============== */
-/* =================================================================== */
-// 2. Função de Alternância (Toggle)
+/* ========================================================================== */
+/* =================== SEÇÃO: CATÁLOGO (SERVIÇOS) ==================== */
+/* ========================================================================== */
+
+/**
+ * Alterna entre abas de sobrancelhas e cílios
+ */
 function alternarServico(tipo) {
     const toggleContainer = document.querySelector('.toggle-container');
     const botoes = document.querySelectorAll('.toggle-item');
     
-    // Anima o fundo colorido
     toggleContainer.setAttribute('data-active', tipo);
     
-    // Atualiza cor do texto
     botoes.forEach(btn => btn.classList.remove('ativo'));
     if (tipo === 'sobrancelhas') {
         botoes[0].classList.add('ativo');
@@ -369,13 +392,9 @@ function alternarServico(tipo) {
     mostrarServicos(tipo);
 }
 
-// 3. Renderização dos Cards (Visual Novo)
-// ===================================================================
-// FUNÇÃO: RENDERIZAR CATÁLOGO (CARROSSEL) - CORRIGIDA
-// ===================================================================
-// ===================================================================
-// FUNÇÃO: RENDERIZAR CATÁLOGO (VISUAL PREMIUM RESTAURADO)
-// ===================================================================
+/**
+ * Renderiza cards de serviços no catálogo
+ */
 function mostrarServicos(tipo) {
     const container = document.getElementById('catalogo-carrossel');
     const botoes = document.querySelectorAll('.toggle-item');
@@ -383,7 +402,6 @@ function mostrarServicos(tipo) {
     
     if (!container || !botoes.length || !toggleContainer) return;
 
-    // 1. Lógica do Toggle (Botões)
     botoes.forEach(btn => btn.classList.remove('ativo'));
     if (tipo === 'sobrancelhas') {
         botoes[0].classList.add('ativo');
@@ -400,22 +418,18 @@ function mostrarServicos(tipo) {
     setTimeout(() => { container.style.opacity = 1; }, 200);
 
     lista.forEach(servico => {
-        // Otimização de Imagem
         const imgMobile = servico.imagem.replace('.avif', '_mobile.avif');
-        
-        // Link Centralizado
         const textoZap = `Olá, Nayra! Gostaria de saber mais sobre: ${servico.titulo}`;
         const linkZap = (typeof CONFIG_SITE !== 'undefined') 
                         ? CONFIG_SITE.gerarLinkZap(textoZap) 
                         : `https://wa.me/5519999670165`;
 
-        // Gera as Tags (Apenas as 2 primeiras para não poluir a foto)
         const tagsHTML = servico.caracteristicas.slice(0, 2).map(tag => 
             `<span class="tag-overlay">${tag}</span>`
         ).join('');
 
         const card = document.createElement('div');
-        card.className = 'catalogo__card'; // Mantém a classe base
+        card.className = 'catalogo__card';
         
         card.innerHTML = `
             <div class="catalogo__imagem-box">
@@ -446,7 +460,9 @@ function mostrarServicos(tipo) {
     });
 }
 
-// 4. Navegação das Setas
+/**
+ * Navegação por setas no carrossel
+ */
 function inicializarNavegacaoCarrossel() {
     const track = document.getElementById('catalogo-carrossel');
     const btnPrev = document.querySelector('.carrossel-btn.prev');
@@ -454,8 +470,7 @@ function inicializarNavegacaoCarrossel() {
 
     if (!track || !btnPrev || !btnNext) return;
 
-    // Distância do scroll a cada clique (ajustado para o tamanho do card)
-    const scrollAmount = 360; 
+    const scrollAmount = 360;
 
     btnPrev.addEventListener('click', () => {
         track.scrollBy({
@@ -472,7 +487,9 @@ function inicializarNavegacaoCarrossel() {
     });
 }
 
-// 5. Highlight e Drag-to-Scroll (Mantidos)
+/**
+ * Destaca o card mais centralizado do carrossel
+ */
 function aplicarSnapHighlight() {
     const container = document.getElementById("catalogo-carrossel");
     if (!container) return;
@@ -494,6 +511,9 @@ function aplicarSnapHighlight() {
     window.requestAnimationFrame(destacarCardCentral);
 }
 
+/**
+ * Permite arrastar carrossel com mouse
+ */
 function inicializarDragToScroll(containerSelector) {
     const container = document.querySelector(containerSelector);
     if (!container) return;
@@ -505,6 +525,7 @@ function inicializarDragToScroll(containerSelector) {
         startX = e.pageX - container.offsetLeft;
         scrollLeft = container.scrollLeft;
     });
+    
     const stopDrag = () => { isDown = false; container.classList.remove('active'); };
     container.addEventListener('mouseleave', stopDrag);
     container.addEventListener('mouseup', stopDrag);
@@ -517,10 +538,74 @@ function inicializarDragToScroll(containerSelector) {
     });
 }
 
-/* =================================================================== */
-/* ================== 4. SEÇÃO CURSOS ================================ */
-/* =================================================================== */
+/* ========================================================================== */
+/* =================== SEÇÃO: COMBOS ================================ */
+/* ========================================================================== */
 
+/**
+ * Renderiza cards de combos promocionais
+ */
+function renderizarCombos() {
+    const container = document.querySelector('.combos__container');
+    if (!container) return;
+    
+    container.innerHTML = '';
+
+    combos.forEach(combo => {
+        const imgMobile = combo.imagem.replace('.avif', '_mobile.avif');
+        const cardDiv = document.createElement('div');
+        cardDiv.className = 'combo-card';
+        if (combo.destaque) cardDiv.classList.add('destaque');
+
+        const subtextoValor = combo.destaque ? "Melhor Custo-Benefício" : "Condição Especial";
+        const textoZap = `Olá, Nayra! Amei o ${combo.nome} e gostaria de aproveitar essa condição especial.`;
+        const linkZap = CONFIG_SITE.gerarLinkZap(textoZap);
+
+        cardDiv.innerHTML = `
+            ${combo.destaque ? `<div class="combo-card__badge">${combo.tag || 'VIP'}</div>` : ''}
+            
+            <div class="combo-card__imagem">
+                <img 
+                    src="${combo.imagem}" 
+                    srcset="${imgMobile} 480w, ${combo.imagem} 800w"
+                    sizes="(max-width: 768px) 90vw, 350px"
+                    alt="${combo.nome}" 
+                    loading="lazy"
+                    width="350"
+                    height="240"
+                >
+            </div>
+
+            <div class="combo-card__conteudo">
+                <h3 class="combo-card__title">${combo.nome}</h3>
+                <p class="combo-card__description">${combo.descricao}</p>
+
+                <div class="combo-card__divisor"><span>♦</span></div>
+
+                <ul class="combo-card__servicos">
+                    ${combo.servicos.map(servico => `<li><i class="fas fa-check-circle"></i> ${servico}</li>`).join('')}
+                </ul>
+
+                <p style="font-size: 0.8rem; color: var(--cor-vinho); margin-bottom: 5px; font-weight: bold;">
+                    ${subtextoValor}
+                </p>
+
+                <a href="${linkZap}" class="combo-card__cta" target="_blank">
+                    ${combo.destaque ? 'Quero Ser VIP' : 'Agendar Combo'}
+                </a>
+            </div>
+        `;
+        container.appendChild(cardDiv);
+    });
+}
+
+/* ========================================================================== */
+/* =================== SEÇÃO: CURSOS ================================ */
+/* ========================================================================== */
+
+/**
+ * Renderiza cards de cursos
+ */
 function renderizarCursos() {
     const container = document.getElementById('cursos-lista');
     if (!container) return;
@@ -528,9 +613,7 @@ function renderizarCursos() {
     container.innerHTML = '';
 
     cursos.forEach(curso => {
-        // --- A MÁGICA ---
         const imgMobile = curso.imagem.replace('.avif', '_mobile.avif');
-
         const cardDiv = document.createElement('div');
         cardDiv.className = 'curso-card';
 
@@ -607,11 +690,13 @@ function renderizarCursos() {
     });
 }
 
+/**
+ * Torna cards de cursos expansíveis
+ */
 function inicializarCardsDeCursoExpansiveis() {
     const container = document.getElementById('cursos-lista');
     if(!container) return;
 
-    // Remove listeners antigos para evitar duplicação se rodar mais de uma vez
     const novoContainer = container.cloneNode(true);
     container.parentNode.replaceChild(novoContainer, container);
 
@@ -631,70 +716,13 @@ function inicializarCardsDeCursoExpansiveis() {
     });
 }
 
-/* =================================================================== */
-/* ================== SEÇÃO COMBOS (RENDERIZAÇÃO) ==================== */
-/* =================================================================== */
+/* ========================================================================== */
+/* =================== SEÇÃO: FEEDBACKS ============================== */
+/* ========================================================================== */
 
-function renderizarCombos() {
-    const container = document.querySelector('.combos__container');
-    if (!container) return;
-    
-    container.innerHTML = '';
-
-    combos.forEach(combo => {
-        // --- A MÁGICA ---
-        const imgMobile = combo.imagem.replace('.avif', '_mobile.avif');
-
-        const cardDiv = document.createElement('div');
-        cardDiv.className = 'combo-card';
-        if (combo.destaque) cardDiv.classList.add('destaque');
-
-        const subtextoValor = combo.destaque ? "Melhor Custo-Benefício" : "Condição Especial";
-        const textoZap = `Olá, Nayra! Amei o ${combo.nome} e gostaria de aproveitar essa condição especial.`;
-        const linkZap = CONFIG_SITE.gerarLinkZap(textoZap);
-
-        cardDiv.innerHTML = `
-            ${combo.destaque ? `<div class="combo-card__badge">${combo.tag || 'VIP'}</div>` : ''}
-            
-            <div class="combo-card__imagem">
-                <img 
-                    src="${combo.imagem}" 
-                    srcset="${imgMobile} 480w, ${combo.imagem} 800w"
-                    sizes="(max-width: 768px) 90vw, 350px"
-                    alt="${combo.nome}" 
-                    loading="lazy"
-                    width="350"
-                    height="240"
-                >
-            </div>
-
-            <div class="combo-card__conteudo">
-                <h3 class="combo-card__title">${combo.nome}</h3>
-                <p class="combo-card__description">${combo.descricao}</p>
-
-                <div class="combo-card__divisor"><span>♦</span></div>
-
-                <ul class="combo-card__servicos">
-                    ${combo.servicos.map(servico => `<li><i class="fas fa-check-circle"></i> ${servico}</li>`).join('')}
-                </ul>
-
-                <p style="font-size: 0.8rem; color: var(--cor-vinho); margin-bottom: 5px; font-weight: bold;">
-                    ${subtextoValor}
-                </p>
-
-                <a href="${linkZap}" class="combo-card__cta" target="_blank">
-                    ${combo.destaque ? 'Quero Ser VIP' : 'Agendar Combo'}
-                </a>
-            </div>
-        `;
-        container.appendChild(cardDiv);
-    });
-}
-
-/* =================================================================== */
-/* ================== 6. SEÇÃO FEEDBACKS ============================= */
-/* =================================================================== */
-
+/**
+ * Renderiza cards de feedbacks de clientes
+ */
 function popularFeedbacks() {
     const list = document.getElementById('feedbacks-list');
     if (!list) return;
@@ -704,10 +732,8 @@ function popularFeedbacks() {
     slidesFeedbacks.forEach(slide => {
         const listItem = document.createElement('li');
         
-        // Gera as estrelas
         let estrelasHTML = Array(slide.rating).fill('<i class="fas fa-star"></i>').join('');
         
-        // Ícone da fonte (Instagram/Whats)
         let sourceIcon = '';
         if (slide.source === 'instagram') sourceIcon = '<i class="fab fa-instagram" style="color:#E1306C"></i>';
         if (slide.source === 'whatsapp') sourceIcon = '<i class="fab fa-whatsapp" style="color:#25D366"></i>';
@@ -742,28 +768,31 @@ function popularFeedbacks() {
     inicializarCarrosselInfinito();
 }
 
+/**
+ * Carrossel infinito de feedbacks
+ */
 function inicializarCarrosselInfinito() {
     const scroller = document.querySelector(".scroller");
     if (!scroller) return;
 
-    // Adiciona atributo para controle CSS
     scroller.setAttribute("data-animated", true);
-
     const scrollerInner = scroller.querySelector(".scroller__inner");
-    // Clona os itens para criar o loop infinito real
     const scrollerContent = Array.from(scrollerInner.children);
 
     scrollerContent.forEach((item) => {
         const duplicatedItem = item.cloneNode(true);
-        duplicatedItem.setAttribute("aria-hidden", true); // Acessibilidade: leitor de tela ignora duplicata
+        duplicatedItem.setAttribute("aria-hidden", true);
         scrollerInner.appendChild(duplicatedItem);
     });
 }
 
-/* =================================================================== */
-/* ================== 7. ANIMAÇÃO DE PROPÓSITO ======================= */
-/* =================================================================== */
+/* ========================================================================== */
+/* =================== SEÇÃO: ANIMAÇÕES ESPECIAIS ==================== */
+/* ========================================================================== */
 
+/**
+ * Anima cards da seção "Propósito"
+ */
 function inicializarAnimacaoProposito() {
     const secaoProposito = document.getElementById('proposito');
     
@@ -786,29 +815,30 @@ function inicializarAnimacaoProposito() {
     }
 }
 
-// Links
+/* ========================================================================== */
+/* =================== LINKS E INFORMAÇÕES DINÂMICAS ================== */
+/* ========================================================================== */
+
+/**
+ * Atualiza links estáticos baseado em CONFIG_SITE
+ */
 function atualizarLinksEstaticos() {
-    // 1. Atualiza todos os links de WhatsApp genéricos (Rodapé, Header, Flutuante)
     const linksZap = document.querySelectorAll('.js-link-whatsapp');
     linksZap.forEach(link => {
-        // Se o link já tiver um texto específico no HTML (data-msg), usa ele. Se não, usa o padrão.
         const msgPersonalizada = link.getAttribute('data-msg') || "Olá! Gostaria de agendar um horário.";
         link.href = CONFIG_SITE.gerarLinkZap(msgPersonalizada);
     });
 
-    // 2. Atualiza Instagram
     const linksInsta = document.querySelectorAll('.js-link-instagram');
     linksInsta.forEach(link => {
         link.href = CONFIG_SITE.social.instagram;
     });
 
-    // 3. Atualiza Texto do Telefone (Visual)
     const textosFone = document.querySelectorAll('.js-texto-telefone');
     textosFone.forEach(el => {
         el.textContent = CONFIG_SITE.enderecos.telefone_visivel;
     });
     
-    // 4. Atualiza Waze e Maps (Seção Localização)
     const btnWaze = document.querySelector('.btn-rota.waze');
     const btnGoogle = document.querySelector('.btn-rota.google');
     
@@ -816,7 +846,9 @@ function atualizarLinksEstaticos() {
     if(btnGoogle) btnGoogle.href = CONFIG_SITE.social.maps_google;
 }
 
-// Carregamento Preguiçoso do Mapa (Lazy Load Real)
+/**
+ * Lazy load do mapa (carrega apenas quando visível)
+ */
 document.addEventListener("DOMContentLoaded", function() {
     const lazyMap = document.querySelector('.lazy-map');
     
@@ -824,52 +856,51 @@ document.addEventListener("DOMContentLoaded", function() {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    // Quando o mapa aparecer na tela, carrega o link real
                     const iframe = entry.target;
                     iframe.src = iframe.getAttribute('data-src');
-                    observer.unobserve(iframe); // Para de vigiar depois de carregar
+                    observer.unobserve(iframe);
                 }
             });
-        }, { rootMargin: "200px" }); // Começa a carregar 200px antes de chegar no mapa
+        }, { rootMargin: "200px" });
         
         observer.observe(lazyMap);
     }
 });
 
-/* =================================================================== */
-/* ================== 8. INICIALIZAÇÃO GERAL (DOM READY) ============= */
-/* =================================================================== */
+/* ========================================================================== */
+/* ================= INICIALIZAÇÃO GERAL (DOM READY) ================== */
+/* ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Componentes Básicos
+    // Componentes básicos
     inicializarCabecalhoResponsivo();
     inicializarAnimacoesDeScroll();
     inicializarBotaoWhatsApp();
     atualizarLinksEstaticos();
     inicializarNavegacaoCarrossel();
     
-    // 2. Seção Catálogo (Carrossel Interativo)
+    // Catálogo de serviços
     if (document.getElementById('catalogo-carrossel')) {
-        mostrarServicos("sobrancelhas"); // Carrega inicial
-        inicializarDragToScroll('.catalogo__carrossel'); // Ativa arrastar
+        mostrarServicos("sobrancelhas");
+        inicializarDragToScroll('.catalogo__carrossel');
     }
 
-    // 3. Seção Combos
+    // Combos
     if (document.querySelector('.combos__container')) {
         renderizarCombos();
     }
     
-    // 4. Seção Cursos
+    // Cursos
     if (document.getElementById('cursos-lista')) {
         renderizarCursos();
         inicializarCardsDeCursoExpansiveis();
     }
     
-    // 5. Seção Feedbacks
+    // Feedbacks
     if (document.getElementById('feedbacks-list')) {
         popularFeedbacks();
     }
 
-    // 6. Animações Específicas
+    // Animações especiais
     inicializarAnimacaoProposito();
 });

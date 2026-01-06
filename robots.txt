@@ -1,0 +1,39 @@
+# robots.txt - Studio Nayra Ananias
+# Controla o acesso de web crawlers aos recursos do site
+
+# Regras gerais para todos os bots
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.php$
+Disallow: /cgi-bin/
+
+# Especificar sitemap
+Sitemap: https://studionayraananias.com.br/sitemap.xml
+
+# Tempo de espera entre requisições (em segundos)
+Crawl-delay: 1
+
+# Permitir Google Bot indexar tudo
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Permitir Bingbot
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Bloquear bots spam conhecidos
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /

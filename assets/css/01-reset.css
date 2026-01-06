@@ -1,0 +1,46 @@
+/* ==========================================================================
+   01. RESET E ESTILOS BASE
+   ========================================================================== */
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 100%;
+    scroll-behavior: smooth;
+}
+
+/* Ocultar Scrollbar */
+html::-webkit-scrollbar,
+main::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    font-family: var(--fonte-corpo);
+    font-size: var(--tamanho-texto-base);
+    line-height: 1.6;
+    color: var(--cor-texto-corpo);
+    background-color: var(--cor-fundo-creme);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+main {
+    width: 100%;
+}
+
+img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+}
+
+a {
+    color: var(--cor-vinho);
+    text-decoration: none;
+    transition: color var(--transition-rapida);
+}
