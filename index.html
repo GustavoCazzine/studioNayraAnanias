@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="pt-br"></html>
 <head>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-9X1XNMXJF4"></script>
     <script>
@@ -31,38 +33,82 @@
             --cor-texto-titulo: #333333;
             --cor-texto-corpo: #6b6657;
             --cor-fundo-branco: #ffffff;
-            --fonte-titulo: 'PlayfairDisplay-Bold', serif;
-            --fonte-corpo: 'OpenSans-Bold', sans-serif;
+            --fonte-titulo: 'Times New Roman', serif; /* Fallback seguro */
             --espacamento-lateral-mobile: 1.5rem;
         }
-        body { margin: 0; font-family: sans-serif; background-color: var(--cor-fundo-creme); color: var(--cor-texto-corpo); }
-        img { display: block; max-width: 100%; }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
         
-        /* Header Crítico */
-        .cabecalho { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; padding: 0.8rem 0; transition: all 0.3s; }
-        .cabecalho__container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
-        .cabecalho__logo { width: 100px; height: auto; }
-        .cabecalho__toggle { display: flex; flex-direction: column; justify-content: space-between; width: 28px; height: 20px; background: 0 0; border: none; cursor: pointer; padding: 0; z-index: 1100; }
-        .hamburguer-line { width: 100%; height: 2px; background-color: var(--cor-vinho); border-radius: 4px; }
+        /* Correção Doctype e Altura */
+        html, body { height: 100%; width: 100%; overflow-x: hidden; }
+        body { font-family: sans-serif; background-color: var(--cor-fundo-creme); color: var(--cor-texto-corpo); -webkit-font-smoothing: antialiased; }
+        img { display: block; max-width: 100%; height: auto; }
         
-        /* Hero Section Crítico */
-        .secao-principal { position: relative; display: flex; flex-direction: column; align-items: center; padding-top: 6em; overflow: hidden; min-height: 90vh; }
-        .secao-principal__fundo { position: absolute; top: 0; left: 0; width: 100%; height: 65vh; display: flex; z-index: -1; }
-        #fundo01 { width: 50%; background-color: #ffffff; }
+        /* Header Fixo e Estável */
+        .cabecalho { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; padding: 0.8rem 0; height: 60px; }
+        .cabecalho__container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; height: 100%; }
+        .cabecalho__logo { width: 100px; height: auto; display: block; }
+        
+        /* Hero Section Travada (Evita Pulos) */
+        .secao-principal { 
+            position: relative; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            background-color: var(--cor-fundo-creme); 
+            padding-top: 6em; 
+            overflow: hidden; 
+            min-height: 90vh; /* Ocupa a tela toda logo de cara */
+            contain: content; /* Diz ao browser: "O que muda aqui dentro não afeta lá fora" */
+        }
+        
+        /* Fundo Travado */
+        .secao-principal__fundo { position: absolute; top: 0; left: 0; width: 100%; height: 65vh; display: flex; z-index: -1; pointer-events: none; }
+        #fundo01 { width: 50%; background-color: var(--cor-fundo-branco); }
         #fundo02 { width: 50%; background-color: var(--cor-dourado); }
         
+        /* Texto Vertical (Causa CLS) - Escondido no carregamento inicial ou travado */
+        .secao-principal__fundo__paragrafo { opacity: 0; } /* Só aparece quando o CSS final carregar */
+
         .secao-principal__conteudo { position: relative; z-index: 2; width: 100%; margin-top: 4rem; padding: 0 1.5rem; display: flex; justify-content: center; }
-        .foto-wrapper { position: relative; width: 150%; display: flex; justify-content: center; }
-        .secao-principal__foto { width: 100%; max-width: 250px; border-radius: 0.5rem; }
         
-        .textos-titulo { text-align: center; margin-top: 1rem; position: relative; z-index: 10; width: 100%; padding: 0 1.5rem; box-sizing: border-box; }
-        .nome-container { display: flex; flex-direction: column; align-items: center; }
-        .nome { line-height: 1; font-weight: bold; }
-        .nayra { font-family: serif; font-size: 2.2em; color: var(--cor-vinho); }
-        .ananias { font-family: serif; font-size: 3.2em; color: var(--cor-vinho-escuro); }
+        .foto-wrapper { 
+            position: relative; 
+            display: flex; 
+            justify-content: center; 
+            width: 250px; /* Tamanho fixo para reservar espaço */
+            height: 250px; 
+            margin: 0 auto;
+        }
+        .secao-principal__foto { width: 100%; height: 100%; object-fit: cover; border-radius: 0.5rem; }
         
-        /* Botão para não ficar feio antes de carregar o CSS completo */
-        .botao-principal { display: inline-flex; background: var(--cor-vinho); color: #fff; padding: 1rem 2rem; border-radius: 50px; text-decoration: none; text-transform: uppercase; font-weight: bold; font-size: 0.95rem; margin-top: 1rem; border: 1px solid transparent; }
+        /* Textos Estabilizados */
+        .textos-titulo { 
+            position: relative; 
+            z-index: 10; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            text-align: center; 
+            width: 100%; 
+            margin-top: 1rem; 
+            min-height: 200px; /* Reserva altura para o texto não empurrar nada */
+        }
+        
+        .nome { line-height: 1; font-weight: bold; display: block; }
+        .nayra { font-size: 2.2em; color: var(--cor-vinho); }
+        .ananias { font-size: 3.2em; color: var(--cor-vinho-escuro); }
+        
+        .secao-principal__titulo-impacto { 
+            font-family: sans-serif; 
+            font-size: 1.1rem; 
+            margin: 1rem 0 2rem; 
+            min-height: 3em; /* Reserva espaço para 2 linhas de texto */
+        }
+        
+        .botao-principal { display: inline-flex; align-items: center; justify-content: center; background: var(--cor-vinho); color: #fff; padding: 1rem 2rem; border-radius: 50px; text-decoration: none; font-weight: bold; text-transform: uppercase; }
+
+        /* Esconde elementos decorativos pesados no início */
+        .menu-watermark { display: none; } 
     </style>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'">
