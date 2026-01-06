@@ -816,6 +816,26 @@ function atualizarLinksEstaticos() {
     if(btnGoogle) btnGoogle.href = CONFIG_SITE.social.maps_google;
 }
 
+// Carregamento Preguiçoso do Mapa (Lazy Load Real)
+document.addEventListener("DOMContentLoaded", function() {
+    const lazyMap = document.querySelector('.lazy-map');
+    
+    if (lazyMap) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Quando o mapa aparecer na tela, carrega o link real
+                    const iframe = entry.target;
+                    iframe.src = iframe.getAttribute('data-src');
+                    observer.unobserve(iframe); // Para de vigiar depois de carregar
+                }
+            });
+        }, { rootMargin: "200px" }); // Começa a carregar 200px antes de chegar no mapa
+        
+        observer.observe(lazyMap);
+    }
+});
+
 /* =================================================================== */
 /* ================== 8. INICIALIZAÇÃO GERAL (DOM READY) ============= */
 /* =================================================================== */
