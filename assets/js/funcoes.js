@@ -1,0 +1,814 @@
+/* =================================================================== */
+/* ======================= 1. DADOS DO SITE ========================== */
+/* =================================================================== */
+
+const CONFIG_SITE = {
+    social: {
+        whatsapp: "5519999670165", // Apenas números
+        instagram: "https://instagram.com/nayraananias", // Seu link real
+        maps_google: "https://goo.gl/maps/SEU_LINK_AQUI", // Link curto do Google Maps
+        waze: "https://waze.com/ul?q=Rua+Quinze+de+Novembro+567+Piracicaba"
+    },
+    enderecos: {
+        fisico: "R. XV de Novembro, 567 - Centro, Piracicaba - SP",
+        telefone_visivel: "(19) 99996-7016"
+    },
+    // Função auxiliar para gerar link do WhatsApp com texto dinâmico
+    gerarLinkZap: function(texto = "") {
+        const mensagem = texto ? `?text=${encodeURIComponent(texto)}` : "";
+        return `https://wa.me/${this.social.whatsapp}${mensagem}`;
+    }
+};
+
+// --- Dados: Seção Catálogo ---
+const servicosSobrancelhas = [
+    {
+        titulo: "Brow Lamination",
+        // Antes: Descrição técnica longa.
+        // Agora: Foco no resultado visual e tendência.
+        descricao: "A tendência global das passarelas. Fios encorpados, alinhados para cima e com aquele efeito 'wild' e volumoso que dura semanas.",
+        caracteristicas: ["Super Volume", "Efeito Fashion", "Nutrição"],
+        imagem: "assets/img/servicos/sobrancelhas/BrowLamination.avif"
+    },
+    {
+        titulo: "Nanobrows",
+        // Foco na dor (falhas) e no desejo (naturalidade imperceptível).
+        descricao: "Esqueça a maquiagem diária. Fios desenhados artisticamente na pele para corrigir falhas com uma naturalidade tão alta que ninguém diz que é micro.",
+        caracteristicas: ["Hiper-realismo", "Sem Dor", "Longa Duração"],
+        imagem: "assets/img/servicos/sobrancelhas/Nanobrows.avif"
+    },
+    {
+        titulo: "Design com Henna",
+        // Foco na praticidade e definição imediata.
+        descricao: "O equilíbrio perfeito entre cor e forma. Realçamos o desenho natural das suas sobrancelhas preenchendo falhas com um acabamento ombré sofisticado.",
+        caracteristicas: ["Efeito Maquiagem", "Definição", "Durabilidade"],
+        imagem: "assets/img/servicos/sobrancelhas/DesignHenna.avif"
+    },
+    {
+        titulo: "Design Personalizado",
+        // Foco na exclusividade e arquitetura facial.
+        descricao: "Não é apenas limpar fios. É um estudo de visagismo para criar a arquitetura perfeita que harmoniza, levanta e valoriza seus traços únicos.",
+        caracteristicas: ["Visagismo", "Harmonia", "Spa dos Fios"],
+        imagem: "assets/img/servicos/sobrancelhas/DesignPers.avif"
+    }
+];
+
+const servicosCilios = [
+    {
+        titulo: "Lash Lifting",
+        // Foco na saúde do fio natural e liberdade da extensão.
+        descricao: "Seus cílios naturais, na sua melhor versão. Curvatura intensa, hidratação profunda e coloração para um 'efeito rímel' sem manutenção complexa.",
+        caracteristicas: ["100% Natural", "Tratamento", "Sem Manutenção"],
+        imagem: "assets/img/servicos/cilios/LashLifting.avif"
+    },
+    {
+        titulo: "Volume Moana",
+        // Foco na textura e no visual "molhado" (tendência).
+        descricao: "Leveza tropical. Uma técnica que mistura texturas para criar o cobiçado 'efeito molhado' (wet look), entregando volume sem perder a delicadeza.",
+        caracteristicas: ["Efeito Molhado", "Textura", "Leveza"],
+        imagem: "assets/img/servicos/cilios/VolumeMoana.avif"
+    },
+    {
+        titulo: "Efeito Fox Eyes",
+        // Foco na sensualidade e mudança no formato do olho.
+        descricao: "O segredo do olhar delineado. Construção estratégica com fios mais longos no canto externo para um efeito lifting imediato, sensual e felino.",
+        caracteristicas: ["Efeito Delineado", "Olhar Felino", "Lifting"],
+        imagem: "assets/img/servicos/cilios/FoxEyses.avif"
+    },
+    {
+        titulo: "Volume Brasileiro",
+        // Foco na retenção (durabilidade) e preenchimento.
+        descricao: "O queridinho do Brasil. Fios tecnológicos em formato de Y que garantem um preenchimento preto intenso, ótima retenção e um olhar marcante.",
+        caracteristicas: ["Retenção Alta", "Preto Intenso", "Volume Y"],
+        imagem: "assets/img/servicos/cilios/VolumeBrasileiro.avif"
+    },
+    {
+        titulo: "Volume Jasmine",
+        // Foco na sofisticação e estilo "Kardashian/Wispy".
+        descricao: "Sofisticação com personalidade. Um design texturizado com 'picos' aparentes que cria um visual de boneca moderna, cheio de atitude.",
+        caracteristicas: ["Estilo Wispy", "Sofisticado", "Texturizado"],
+        imagem: "assets/img/servicos/cilios/VolumeJasmine.avif"
+    }
+];
+
+// --- Dados: Seção Feedbacks ---
+const slidesFeedbacks = [
+    { 
+        nome: "@brubsg2",
+        texto: "Nunca fui ao studio, mas acompanhando aqui vejo seu empenho ❤️ continue!",
+        imagem: "/assets/img/feedbacks/Cliente01.avif", 
+        rating: 5,
+        source: "instagram",
+        destaque: "Acompanhando aqui vejo seu empenho."
+    },
+    { 
+        nome: "@aline_bocatto",
+        texto: "Um atendimento seu é muito mais do que um simples procedimento, é uma energia positiva vinda de você, um carinho, uma atenção... a autoestima e o brilho que você trás para nós não tem preço ❤️ amo seu trabalho Nayra 🥰",
+        imagem: "/assets/img/feedbacks/Cliente06.avif", 
+        rating: 5,
+        source: "instagram",
+        destaque: "Um atendimento seu é muito mais do que um simples procedimento."
+    },
+    { 
+        nome: "@gabrielasantos5692",
+        texto: "Maravilhosa, impecável, caprichosa, eu sou suspeita falar pq eu sou realmente fã 😍",
+        imagem: "/assets/img/feedbacks/Cliente02.avif",
+        rating: 5,
+        source: "instagram",
+        destaque: "Maravilhosa, impecável, caprichosa."
+    },
+    { 
+        nome: "Mikaela Boaretto",
+        texto: "Maravilhosos! Eu fiquei sem por um período, pois estava me adaptando novamente com os cílios kkkk. Para piscar, é maravilhoso! Realmente, a sensação de que não estou com extensão. O volume atendeu todas as minhas expectativas, não ardeu quando abri os olhos e, depois, também não ardeu nada.",
+        imagem: "/assets/img/feedbacks/Cliente07.avif", 
+        rating: 5,
+        source: "whatsapp",
+        destaque: "Realmente, a sensação de que não estou com extensão."
+    },
+    { 
+        nome: "@bii_rodriguees",
+        texto: "Foca em cada detalhe!!! Cílios, sobrancelha, maquiagem, simplesmente peritaaa no q faz",
+        imagem: "/assets/img/feedbacks/Cliente03.avif", 
+        rating: 5,
+        source: "instagram",
+        destaque: "Foca em cada detalhe!!! Simplesmente perita no que faz."
+    },
+    { 
+        nome: "@eder_sillva019",
+        texto: "Sou seu fã 😍",
+        imagem: "/assets/img/feedbacks/Cliente04.avif",
+        rating: 5,
+        source: "instagram",
+        destaque: "Sou seu fã!"
+    },
+    { 
+        nome: "@prettyboxbraids2",
+        texto: "Muito boa, inclusive sdds do seu atendimento",
+        imagem: "/assets/img/feedbacks/Cliente05.avif",
+        rating: 5,
+        source: "instagram",
+        destaque: "Muito boa, inclusive sinto saudades do seu atendimento."
+    },
+    { 
+        nome: "@bii_rodriguees",
+        texto: "Desde quando vc começou sempre faço qualquer procedimento com vc!!! Impecável",
+        imagem: "/assets/img/feedbacks/Cliente03.avif",
+        source: "instagram",
+        destaque: "Sempre faço qualquer procedimento com você! Impecável."
+    },
+    { 
+        nome: "Mikaela Boaretto",
+        texto: "Você arrasou! Amei tudo. O atendimento foi de suma importância, especialmente quando você me mostrou detalhadamente os tamanhos e como seria feito, atendendo ao contorno dos meus olhos e à minha satisfação. De atendimento, nota 10; procedimento, nota 10.",
+        imagem: "/assets/img/feedbacks/Cliente07.avif",
+        rating: 5,
+        source: "whatsapp",
+        destaque: "Atendimento, nota 10; procedimento, nota 10."
+    },
+    { 
+        nome: "Aline Guimarães",
+        texto: "Me senti tão confortável e bem acolhida por você! Por ser o meu primeiro atendimento, a gente fica com vergonha, mas você sabe como lidar com a cliente do início ao fim. Atenciosa com nosso conforto, bem-estar e trabalho impecável. Não poderia estar mais contente com a escolha da profissional.",
+        imagem: "/assets/img/feedbacks/Cliente08.avif", 
+        rating: 5,
+        source: "whatsapp",
+        destaque: "Me senti tão confortável e bem acolhida por você!"
+    }
+];
+
+// --- Dados: Seção Combos (Atualizado) ---
+const combos = [
+    {
+        nome: "Combo Impacto Laminado",
+        imagem: "assets/img/combos/Combo1.avif", 
+        // Copy focado em tendência e destaque
+        descricao: "A escolha nº 1 das clientes. Une o volume intenso dos cílios à modernidade das sobrancelhas laminadas. Ideal para quem quer acordar pronta e impactante.",
+        servicos: ["Volume Brasileiro", "Brow Lamination", "Bônus: Hidratação"],
+        destaque: true,
+        tag: "O Mais Vendido ⭐"
+    },
+    {
+        nome: "Combo Moana Perfeito",
+        imagem: "assets/img/combos/Combo2.avif", 
+        // Copy focado em naturalidade e charme
+        descricao: "O equilíbrio exato entre charme e naturalidade. Um olhar marcante com efeito molhado e sobrancelhas desenhadas para harmonizar com seu rosto.",
+        servicos: ["Volume Moana (Wet)", "Design com Henna", "Spa dos Fios"],
+        destaque: false
+    },
+    {
+        nome: "Combo Lifting Total",
+        imagem: "assets/img/combos/Combo3.avif",
+        // Copy focado em saúde e tratamento
+        descricao: "Beleza natural potencializada. Curvamos seus cílios e alinhamos suas sobrancelhas mantendo a saúde dos fios. O verdadeiro 'Glow Up' sem artificios.",
+        servicos: ["Lash Lifting", "Brow Lamination", "Nutrição Profunda"],
+        destaque: false
+    }
+];
+
+// 1. DADOS ATUALIZADOS (COPYWRITING DE CARREIRA)
+const cursos = [
+    { 
+        titulo: "Formação Lash Designer de Elite", 
+        chamada: "Do zero à sua independência financeira. Aprenda a técnica clássica com segurança e comece a faturar na primeira semana.",
+        imagem: "assets/img/cursos/lash.avif",
+        tags: ["Iniciante", "Com Certificado"],
+        conteudo: {
+            "para_quem": "Mulheres que desejam liberdade de horário e um negócio lucrativo, mesmo sem nenhuma experiência na área da beleza.",
+            "aprendizado": ["Anatomia e saúde ocular (Biossegurança)", "Mapping e Visagismo personalizado", "Técnica Fio a Fio Clássico perfeita", "Como conquistar as primeiras clientes", "Precificação e Marketing para Lashes"],
+            "incluso": ["Kit Profissional Completo (Para 30 atendimentos)", "Apostila Didática Premium", "Certificado Válido em Todo Território Nacional", "Suporte Vitalício no WhatsApp"],
+            "duracao": "Imersão de 2 Dias (Teoria + Prática em Modelos)"
+        }
+    },
+    { 
+        titulo: "Especialização Volume Brasileiro", 
+        chamada: "A técnica mais pedida nos studios. Aumente seu ticket médio e entregue o volume e a retenção que suas clientes sonham.",
+        imagem: "assets/img/cursos/cilios.avif",
+        tags: ["Avançado", "Alta Procura"],
+        conteudo: {
+            "para_quem": "Lash Designers que já dominam o clássico e querem se destacar da concorrência oferecendo técnicas avançadas.",
+            "aprendizado": ["Dominando os fios tecnológicos (Y, W)", "Capping e Cristalização para retenção máxima", "Efeitos: Delineado, Fox e Boneca", "Correção de simetria", "Fotografia para vender no Instagram"],
+            "incluso": ["Apostila de Especialização", "Certificado de Especialista", "Lista de Fornecedores Exclusivos", "Mentoria de Carreira"],
+            "duracao": "1 Dia Intensivo (Hands-on)"
+        }
+    },
+    { 
+        titulo: "Master em Sobrancelhas & Henna", 
+        chamada: "A porta de entrada para a estética. Domine a geometria facial e transforme olhares com a naturalidade da henna e design estratégico.",
+        imagem: "assets/img/cursos/sobrancelhas.avif",
+        tags: ["Iniciante", "Rentável"],
+        conteudo: {
+            "para_quem": "Quem busca uma profissão com baixo investimento inicial e alto retorno rápido.",
+            "aprendizado": ["Mapeamento Facial com Linha (Geometry)", "Visagismo aplicado", "Colorimetria e preparação da Henna", "Design Masculino e Feminino", "Epilação egípcia (bônus)"],
+            "incluso": ["Kit de Design Inicial", "Apostila Ilustrada", "Certificado Master Designer", "Estágio supervisionado (1 modelo)"],
+            "duracao": "2 Dias (Teoria + Muita Prática)"
+        }
+    }
+];
+
+/* =================================================================== */
+/* =================== 2. UTILITÁRIOS GERAIS ========================= */
+/* =================================================================== */
+
+function inicializarCabecalhoResponsivo() {
+    const cabecalho = document.getElementById('cabecalho');
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.querySelectorAll('.cabecalho__link');
+    const body = document.body;
+
+    function toggleMenu() {
+        body.classList.toggle('menu-aberto');
+        const isOpen = body.classList.contains('menu-aberto');
+        menuToggle.setAttribute('aria-label', isOpen ? 'Fechar Menu' : 'Abrir Menu');
+    }
+
+    if (menuToggle) {
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleMenu();
+        });
+    }
+
+    // Fecha ao clicar em um link
+    navLinks.forEach(link => {
+        link.addEventListener('click', toggleMenu);
+    });
+
+    // Fecha ao clicar fora do menu (Opcional, mas boa prática)
+    document.addEventListener('click', (e) => {
+        const isClickInsideMenu = document.getElementById('cabecalho-nav').contains(e.target);
+        const isClickOnToggle = menuToggle.contains(e.target);
+        
+        if (body.classList.contains('menu-aberto') && !isClickInsideMenu && !isClickOnToggle) {
+            toggleMenu();
+        }
+    });
+
+    function onScroll() {
+        if (window.scrollY > 20) {
+            cabecalho.classList.add('cabecalho--scrolled');
+        } else {
+            cabecalho.classList.remove('cabecalho--scrolled');
+        }
+    }
+
+    window.addEventListener('scroll', onScroll);
+    onScroll();
+}
+
+function inicializarAnimacoesDeScroll() {
+    const animatedElements = document.querySelectorAll('.animate-on-scroll');
+    if (!("IntersectionObserver" in window) || animatedElements.length === 0) {
+        animatedElements.forEach(element => element.classList.add('is-visible'));
+        return;
+    }
+
+    const observer = new IntersectionObserver((entries, observerInstance) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observerInstance.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    animatedElements.forEach(element => observer.observe(element));
+}
+
+function inicializarBotaoWhatsApp() {
+    const whatsappButton = document.querySelector('.whatsapp-button');
+    const whatsappTooltip = document.querySelector('.whatsapp-tooltip');
+    if (!whatsappButton || !whatsappTooltip) return;
+
+    let tooltipShown = false;
+
+    function toggleWhatsAppButton() {
+        if (window.scrollY > 100) {
+            whatsappButton.classList.add('visible');
+            if (!tooltipShown) {
+                whatsappTooltip.classList.add('visible');
+                tooltipShown = true;
+                setTimeout(() => {
+                    whatsappTooltip.classList.add('fade-out');
+                    setTimeout(() => whatsappTooltip.classList.remove('visible', 'fade-out'), 500);
+                }, 2000);
+            }
+        } else {
+            whatsappButton.classList.remove('visible');
+        }
+    }
+    
+    function debounce(func, wait) {
+        let timeout;
+        return function(...args) {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(this, args), wait);
+        };
+    }
+
+    window.addEventListener('scroll', debounce(toggleWhatsAppButton, 100));
+    toggleWhatsAppButton();
+}
+
+/* =================================================================== */
+/* ================== 3. LÓGICA DO CATÁLOGO (CARROSSEL) ============== */
+/* =================================================================== */
+// 2. Função de Alternância (Toggle)
+function alternarServico(tipo) {
+    const toggleContainer = document.querySelector('.toggle-container');
+    const botoes = document.querySelectorAll('.toggle-item');
+    
+    // Anima o fundo colorido
+    toggleContainer.setAttribute('data-active', tipo);
+    
+    // Atualiza cor do texto
+    botoes.forEach(btn => btn.classList.remove('ativo'));
+    if (tipo === 'sobrancelhas') {
+        botoes[0].classList.add('ativo');
+    } else {
+        botoes[1].classList.add('ativo');
+    }
+
+    mostrarServicos(tipo);
+}
+
+// 3. Renderização dos Cards (Visual Novo)
+function mostrarServicos(tipo) {
+    const container = document.getElementById("catalogo-carrossel");
+    if (!container) return;
+    
+    container.innerHTML = "";
+    const servicos = tipo === "sobrancelhas" ? servicosSobrancelhas : servicosCilios;
+
+    servicos.forEach((servico) => {
+        const card = document.createElement("div");
+        card.className = "catalogo__card";
+        card.setAttribute("role", "group");
+        
+        // HTML DO CARD NOVO: Imagem Grande + Tags Sobrepostas + Texto Limpo
+        card.innerHTML = `
+            <div style="position: relative;">
+                <img src="${servico.imagem}" alt="${servico.titulo}" style="width: 100%; height: 220px; object-fit: cover; display: block;">
+                
+                <div style="position: absolute; bottom: 10px; left: 10px; display: flex; flex-wrap: wrap; gap: 5px;">
+                     ${servico.caracteristicas.slice(0, 2).map(item => 
+                        `<span style="background: rgba(255,255,255,0.95); color: #333; font-size: 0.7rem; padding: 4px 10px; border-radius: 12px; font-weight: 700; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">${item}</span>`
+                     ).join("")}
+                </div>
+            </div>
+
+            <div class="catalogo__card__conteudo">
+                <h3 class="catalogo__card__titulo">${servico.titulo}</h3>
+                <p class="catalogo__card__descricao">
+                    ${servico.descricao}
+                </p>
+                <div class="catalogo__cta">
+                    <a href="https://wa.me/5519999670165?text=Olá!%20Amei%20o%20${encodeURIComponent(servico.titulo)}%20e%20gostaria%20de%20agendar." target="_blank">Agendar Horário</a>
+                </div>
+            </div>
+        `;
+        container.appendChild(card);
+    });
+
+    // Reinicia eventos de scroll e click
+    aplicarSnapHighlight();
+    inicializarNavegacao(); 
+    container.scrollTo({ left: 0, behavior: 'smooth' });
+}
+
+// 4. Navegação das Setas
+function inicializarNavegacao() {
+    const container = document.getElementById("catalogo-carrossel");
+    const btnPrev = document.querySelector('.carrossel-btn.prev');
+    const btnNext = document.querySelector('.carrossel-btn.next');
+
+    if(!btnPrev || !btnNext || !container) return;
+
+    // Remove listeners antigos
+    const newPrev = btnPrev.cloneNode(true);
+    const newNext = btnNext.cloneNode(true);
+    btnPrev.parentNode.replaceChild(newPrev, btnPrev);
+    btnNext.parentNode.replaceChild(newNext, btnNext);
+
+    const cardWidth = 356; // Largura aproximada do card + gap
+
+    newPrev.addEventListener('click', () => {
+        container.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+    });
+
+    newNext.addEventListener('click', () => {
+        container.scrollBy({ left: cardWidth, behavior: 'smooth' });
+    });
+}
+
+// 5. Highlight e Drag-to-Scroll (Mantidos)
+function aplicarSnapHighlight() {
+    const container = document.getElementById("catalogo-carrossel");
+    if (!container) return;
+
+    const destacarCardCentral = () => {
+        const cards = container.querySelectorAll(".catalogo__card");
+        if (cards.length === 0) return;
+        const containerCenter = container.getBoundingClientRect().left + container.getBoundingClientRect().width / 2;
+
+        cards.forEach(card => {
+            const cardRect = card.getBoundingClientRect();
+            const cardCenter = cardRect.left + cardRect.width / 2;
+            const distancia = Math.abs(containerCenter - cardCenter);
+            card.classList.toggle("destacado", distancia < (cardRect.width / 2) * 0.8);
+        });
+    };
+    
+    container.onscroll = () => window.requestAnimationFrame(destacarCardCentral);
+    window.requestAnimationFrame(destacarCardCentral);
+}
+
+function inicializarDragToScroll(containerSelector) {
+    const container = document.querySelector(containerSelector);
+    if (!container) return;
+    let isDown = false, startX, scrollLeft;
+
+    container.addEventListener('mousedown', (e) => {
+        isDown = true;
+        container.classList.add('active');
+        startX = e.pageX - container.offsetLeft;
+        scrollLeft = container.scrollLeft;
+    });
+    const stopDrag = () => { isDown = false; container.classList.remove('active'); };
+    container.addEventListener('mouseleave', stopDrag);
+    container.addEventListener('mouseup', stopDrag);
+    container.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - container.offsetLeft;
+        const walk = (x - startX) * 2;
+        container.scrollLeft = scrollLeft - walk;
+    });
+}
+
+/* =================================================================== */
+/* ================== 4. SEÇÃO CURSOS ================================ */
+/* =================================================================== */
+
+function renderizarCursos() {
+    const container = document.getElementById('cursos-lista');
+    if (!container) return;
+    
+    container.innerHTML = '';
+
+    cursos.forEach(curso => {
+        const cardDiv = document.createElement('div');
+        cardDiv.className = 'curso-card';
+
+        // Gera as tags HTML
+        const tagsHTML = curso.tags ? curso.tags.map(tag => `<span class="curso-tag">${tag}</span>`).join('') : '';
+        const textoZap = `Olá, Nayra! Quero saber próximas turmas do ${curso.titulo}`;
+        const linkZap = CONFIG_SITE.gerarLinkZap(textoZap);
+
+        cardDiv.innerHTML = `
+            <div class="curso-card__preview">
+                <div class="curso-card__imagem-container">
+                    <img src="${curso.imagem}" alt="Curso ${curso.titulo}" class="curso-card__imagem" loading="lazy">
+                </div>
+
+                <div class="curso-card__info">
+                    <div class="curso-tags-header">${tagsHTML}</div>
+                    
+                    <h3>${curso.titulo}</h3>
+                    <p>${curso.chamada}</p>
+                    
+                    <div class="card-botoes-container">
+                        <button class="curso-card__toggle-btn">
+                            Ver Grade Completa <i class="fas fa-chevron-down" style="margin-left:5px"></i>
+                        </button>
+                        
+                       <a href="${linkZap}" target="_blank" class="botao-principal" ...>
+                        Falar com a Professora
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="curso-card__detalhes">
+                <div class="detalhes-wrapper">
+                    <div class="detalhes__grid">
+                        
+                        <div class="detalhe-bloco">
+                            <h4><i class="fas fa-bullseye"></i> Para Quem é?</h4>
+                            <p style="font-size:0.95rem; line-height:1.5; color:#555;">${curso.conteudo.para_quem}</p>
+                        </div>
+
+                        <div class="detalhe-bloco">
+                            <h4><i class="fas fa-book-open"></i> O Que Você Vai Aprender</h4>
+                            <ul>
+                                ${curso.conteudo.aprendizado.map(item => `<li><i class="fas fa-check"></i> ${item}</li>`).join('')}
+                            </ul>
+                        </div>
+
+                        <div class="detalhe-bloco ouro">
+                            <h4><i class="fas fa-gift"></i> Incluso no Investimento</h4>
+                            <ul>
+                                ${curso.conteudo.incluso.map(item => `<li><i class="fas fa-star"></i> ${item}</li>`).join('')}
+                            </ul>
+                        </div>
+
+                        <div class="detalhe-bloco">
+                            <h4><i class="fas fa-clock"></i> Duração</h4>
+                            <p style="font-size: 1.1rem; color: var(--cor-vinho); font-weight: bold;">${curso.conteudo.duracao}</p>
+                        </div>
+                    </div>
+
+                    <div class="detalhes__cta-final">
+                        <p style="margin-bottom: 1rem; font-size: 0.9rem; color: #666;">
+                            <i class="fas fa-exclamation-circle" style="color:var(--cor-dourado)"></i> Vagas limitadas para garantir atenção total a cada aluna.
+                        </p>
+                        <a href="https://wa.me/5519999670165?text=Quero%20me%20inscrever%20no%20curso%20${encodeURIComponent(curso.titulo)}" class="botao-principal" target="_blank">
+                            Garantir Minha Vaga
+                        </a>
+                    </div>
+                </div>
+            </div>
+        `;
+        container.appendChild(cardDiv);
+    });
+}
+
+function inicializarCardsDeCursoExpansiveis() {
+    const container = document.getElementById('cursos-lista');
+    if(!container) return;
+
+    // Remove listeners antigos para evitar duplicação se rodar mais de uma vez
+    const novoContainer = container.cloneNode(true);
+    container.parentNode.replaceChild(novoContainer, container);
+
+    novoContainer.addEventListener('click', (e) => {
+        const botao = e.target.closest('.curso-card__toggle-btn');
+        
+        if (botao) {
+            const card = botao.closest('.curso-card');
+            card.classList.toggle('expandido');
+
+            if (card.classList.contains('expandido')) {
+                botao.innerHTML = 'Fechar Grade <i class="fas fa-chevron-up" style="margin-left:5px"></i>';
+            } else {
+                botao.innerHTML = 'Ver Grade Completa <i class="fas fa-chevron-down" style="margin-left:5px"></i>';
+            }
+        }
+    });
+}
+
+/* =================================================================== */
+/* ================== SEÇÃO COMBOS (RENDERIZAÇÃO) ==================== */
+/* =================================================================== */
+
+function renderizarCombos() {
+    const container = document.querySelector('.combos__container');
+    if (!container) return;
+    
+    container.innerHTML = '';
+
+    combos.forEach(combo => {
+        const cardDiv = document.createElement('div');
+        cardDiv.className = 'combo-card';
+        if (combo.destaque) {
+            cardDiv.classList.add('destaque');
+        }
+
+        // Definindo uma "Tag de Valor" baseada no destaque
+        const subtextoValor = combo.destaque ? "Melhor Custo-Benefício" : "Condição Especial";
+        const textoZap = `Olá, Nayra! Amei o ${combo.nome} e gostaria de aproveitar essa condição especial.`;
+        const linkZap = CONFIG_SITE.gerarLinkZap(textoZap);
+
+        cardDiv.innerHTML = `
+            ${combo.destaque ? `<div class="combo-card__badge">${combo.tag || 'VIP'}</div>` : ''}
+            
+            <div class="combo-card__imagem">
+                <img src="${combo.imagem}" alt="${combo.nome}" loading="lazy">
+            </div>
+
+            <div class="combo-card__conteudo">
+                <h3 class="combo-card__title">${combo.nome}</h3>
+                
+                <p class="combo-card__description">${combo.descricao}</p>
+
+                <div class="combo-card__divisor">
+                    <span>♦</span> </div>
+
+                <ul class="combo-card__servicos">
+                    ${combo.servicos.map(servico => `
+                        <li><i class="fas fa-check-circle"></i> ${servico}</li>
+                    `).join('')}
+                </ul>
+
+                <p style="font-size: 0.8rem; color: var(--cor-vinho); margin-bottom: 5px; font-weight: bold;">
+                    ${subtextoValor}
+                </p>
+
+                <a href="${linkZap}" class="combo-card__cta" target="_blank">
+                    ${combo.destaque ? 'Quero Ser VIP' : 'Escolher Este'}
+                </a>
+            </div>
+        `;
+
+        container.appendChild(cardDiv);
+    });
+}
+
+/* =================================================================== */
+/* ================== 6. SEÇÃO FEEDBACKS ============================= */
+/* =================================================================== */
+
+function popularFeedbacks() {
+    const list = document.getElementById('feedbacks-list');
+    if (!list) return;
+
+    list.innerHTML = '';
+
+    slidesFeedbacks.forEach(slide => {
+        const listItem = document.createElement('li');
+        
+        // Gera as estrelas
+        let estrelasHTML = Array(slide.rating).fill('<i class="fas fa-star"></i>').join('');
+        
+        // Ícone da fonte (Instagram/Whats)
+        let sourceIcon = '';
+        if (slide.source === 'instagram') sourceIcon = '<i class="fab fa-instagram" style="color:#E1306C"></i>';
+        if (slide.source === 'whatsapp') sourceIcon = '<i class="fab fa-whatsapp" style="color:#25D366"></i>';
+        if (slide.source === 'google') sourceIcon = '<i class="fab fa-google" style="color:#4285F4"></i>';
+
+        listItem.innerHTML = `
+            <div class="card-feedback">
+                <div class="card-feedback__header">
+                    <img src="${slide.imagem}" alt="Cliente ${slide.nome}" onerror="this.src='assets/img/placeholder-avatar.png'">
+                    
+                    <div class="user-info">
+                        <strong>${slide.nome}</strong>
+                        <span class="verified-badge"><i class="fas fa-check-circle"></i> Cliente Verificada</span>
+                    </div>
+                    
+                    <div class="source" title="Avaliação via ${slide.source}">${sourceIcon}</div>
+                </div>
+
+                <div class="rating-source">
+                    <div class="estrelas">${estrelasHTML}</div>
+                </div>
+
+                <div>
+                    <p class="frase-destaque">"${slide.destaque}"</p>
+                    <p class="texto-completo">${slide.texto}</p>
+                </div>
+            </div>
+        `;
+        list.appendChild(listItem);
+    });
+
+    inicializarCarrosselInfinito();
+}
+
+function inicializarCarrosselInfinito() {
+    const scroller = document.querySelector(".scroller");
+    if (!scroller) return;
+
+    // Adiciona atributo para controle CSS
+    scroller.setAttribute("data-animated", true);
+
+    const scrollerInner = scroller.querySelector(".scroller__inner");
+    // Clona os itens para criar o loop infinito real
+    const scrollerContent = Array.from(scrollerInner.children);
+
+    scrollerContent.forEach((item) => {
+        const duplicatedItem = item.cloneNode(true);
+        duplicatedItem.setAttribute("aria-hidden", true); // Acessibilidade: leitor de tela ignora duplicata
+        scrollerInner.appendChild(duplicatedItem);
+    });
+}
+
+/* =================================================================== */
+/* ================== 7. ANIMAÇÃO DE PROPÓSITO ======================= */
+/* =================================================================== */
+
+function inicializarAnimacaoProposito() {
+    const secaoProposito = document.getElementById('proposito');
+    
+    if (secaoProposito) {
+        const cards = secaoProposito.querySelectorAll('.proposito-v2__card');
+
+        const observador = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    cards.forEach(card => {
+                        card.classList.add('borda-animada');
+                        card.classList.add('conteudo-revelado');
+                    });
+                    observador.unobserve(secaoProposito);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        observador.observe(secaoProposito);
+    }
+}
+
+// Links
+function atualizarLinksEstaticos() {
+    // 1. Atualiza todos os links de WhatsApp genéricos (Rodapé, Header, Flutuante)
+    const linksZap = document.querySelectorAll('.js-link-whatsapp');
+    linksZap.forEach(link => {
+        // Se o link já tiver um texto específico no HTML (data-msg), usa ele. Se não, usa o padrão.
+        const msgPersonalizada = link.getAttribute('data-msg') || "Olá! Gostaria de agendar um horário.";
+        link.href = CONFIG_SITE.gerarLinkZap(msgPersonalizada);
+    });
+
+    // 2. Atualiza Instagram
+    const linksInsta = document.querySelectorAll('.js-link-instagram');
+    linksInsta.forEach(link => {
+        link.href = CONFIG_SITE.social.instagram;
+    });
+
+    // 3. Atualiza Texto do Telefone (Visual)
+    const textosFone = document.querySelectorAll('.js-texto-telefone');
+    textosFone.forEach(el => {
+        el.textContent = CONFIG_SITE.enderecos.telefone_visivel;
+    });
+    
+    // 4. Atualiza Waze e Maps (Seção Localização)
+    const btnWaze = document.querySelector('.btn-rota.waze');
+    const btnGoogle = document.querySelector('.btn-rota.google');
+    
+    if(btnWaze) btnWaze.href = CONFIG_SITE.social.waze;
+    if(btnGoogle) btnGoogle.href = CONFIG_SITE.social.maps_google;
+}
+
+/* =================================================================== */
+/* ================== 8. INICIALIZAÇÃO GERAL (DOM READY) ============= */
+/* =================================================================== */
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Componentes Básicos
+    inicializarCabecalhoResponsivo();
+    inicializarAnimacoesDeScroll();
+    inicializarBotaoWhatsApp();
+    atualizarLinksEstaticos();
+    
+    // 2. Seção Catálogo (Carrossel Interativo)
+    if (document.getElementById('catalogo-carrossel')) {
+        mostrarServicos("sobrancelhas"); // Carrega inicial
+        inicializarDragToScroll('.catalogo__carrossel'); // Ativa arrastar
+    }
+
+    // 3. Seção Combos
+    if (document.querySelector('.combos__container')) {
+        renderizarCombos();
+    }
+    
+    // 4. Seção Cursos
+    if (document.getElementById('cursos-lista')) {
+        renderizarCursos();
+        inicializarCardsDeCursoExpansiveis();
+    }
+    
+    // 5. Seção Feedbacks
+    if (document.getElementById('feedbacks-list')) {
+        popularFeedbacks();
+    }
+
+    // 6. Animações Específicas
+    inicializarAnimacaoProposito();
+});
