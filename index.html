@@ -12,6 +12,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#fffbf7">
+    
     <title>Studio Nayra Ananias | Cílios e Sobrancelhas em Piracicaba</title>
     <meta name="description" content="Transforme seu olhar com extensão de cílios, design de sobrancelhas e outros procedimentos estéticos em Piracicaba. Atendimento especializado e personalizado para mulheres que buscam beleza e autoestima. Agende agora!">
 
@@ -33,55 +34,69 @@
             --cor-texto-titulo: #333333;
             --cor-texto-corpo: #6b6657;
             --cor-fundo-branco: #ffffff;
-            --fonte-titulo: 'Times New Roman', serif; /* Fallback seguro */
             --espacamento-lateral-mobile: 1.5rem;
+            --tamanho-texto-pequeno: 0.9rem;
         }
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Times New Roman', serif; background-color: var(--cor-fundo-creme); color: var(--cor-texto-corpo); -webkit-font-smoothing: antialiased; margin: 0; }
+        img { display: block; max-width: 100%; }
         
-        /* Correção Doctype e Altura */
-        html, body { height: 100%; width: 100%; overflow-x: hidden; }
-        body { font-family: sans-serif; background-color: var(--cor-fundo-creme); color: var(--cor-texto-corpo); -webkit-font-smoothing: antialiased; }
-        img { display: block; max-width: 100%; height: auto; }
-        
-        /* Header Fixo e Estável */
-        .cabecalho { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; padding: 0.8rem 0; height: 60px; }
-        .cabecalho__container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; height: 100%; }
-        .cabecalho__logo { width: 100px; height: auto; display: block; }
-        
-        /* Hero Section Travada (Evita Pulos) */
+        /* HEADER (Exato do Original) */
+        .cabecalho { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background-color: transparent; padding: 0.8rem 0; transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        .cabecalho__container { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 var(--espacamento-lateral-mobile); }
+        .cabecalho__logo { width: 100px; height: auto; display: block; position: relative; z-index: 1100; }
+        .cabecalho__toggle { display: flex; flex-direction: column; justify-content: space-between; width: 28px; height: 20px; background: transparent; border: none; cursor: pointer; padding: 0; z-index: 1100; }
+        .hamburguer-line { width: 100%; height: 2px; background-color: var(--cor-vinho); border-radius: 4px; }
+        .cabecalho__nav { display: none; } /* Mobile Menu Oculto */
+
+        /* HERO SECTION (Exato do Original para não quebrar) */
         .secao-principal { 
             position: relative; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
-            background-color: var(--cor-fundo-creme); 
-            padding-top: 6em; 
             overflow: hidden; 
-            min-height: 90vh; /* Ocupa a tela toda logo de cara */
-            contain: content; /* Diz ao browser: "O que muda aqui dentro não afeta lá fora" */
+            background-color: var(--cor-fundo-creme); 
+            padding: 0; 
+            padding-top: 6em; 
         }
         
-        /* Fundo Travado */
-        .secao-principal__fundo { position: absolute; top: 0; left: 0; width: 100%; height: 65vh; display: flex; z-index: -1; pointer-events: none; }
-        #fundo01 { width: 50%; background-color: var(--cor-fundo-branco); }
-        #fundo02 { width: 50%; background-color: var(--cor-dourado); }
+        .secao-principal__fundo { position: absolute; top: 0; left: 0; width: 100%; height: 65vh; display: flex; z-index: 1; }
+        #fundo01 { width: 50%; height: 465px; background-color: var(--cor-fundo-branco); }
+        #fundo02 { width: 50%; height: 465px; background-color: var(--cor-dourado); }
         
-        /* Texto Vertical (Causa CLS) - Escondido no carregamento inicial ou travado */
-        .secao-principal__fundo__paragrafo { opacity: 0; } /* Só aparece quando o CSS final carregar */
+        /* Texto Vertical (Oculto no carregamento para evitar CLS) */
+        .secao-principal__fundo__paragrafo { opacity: 0; } 
 
-        .secao-principal__conteudo { position: relative; z-index: 2; width: 100%; margin-top: 4rem; padding: 0 1.5rem; display: flex; justify-content: center; }
+        .secao-principal__conteudo { 
+            position: relative; 
+            z-index: 2; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            width: 100%; 
+            margin-top: 4rem; 
+            padding: 0 var(--espacamento-lateral-mobile); 
+        }
         
         .foto-wrapper { 
             position: relative; 
             display: flex; 
             justify-content: center; 
-            width: 250px; /* Tamanho fixo para reservar espaço */
-            height: 250px; 
-            margin: 0 auto;
+            width: 150%; 
+            z-index: 2; 
         }
-        .secao-principal__foto { width: 100%; height: 100%; object-fit: cover; border-radius: 0.5rem; }
         
-        /* Textos Estabilizados */
+        .secao-principal__foto { 
+            width: 100%; 
+            max-width: 250px; 
+            aspect-ratio: 1/1; 
+            object-fit: cover; 
+            z-index: 2; 
+            border-radius: 0.5rem; 
+        }
+        
+        /* TEXTOS */
         .textos-titulo { 
             position: relative; 
             z-index: 10; 
@@ -90,29 +105,50 @@
             align-items: center; 
             text-align: center; 
             width: 100%; 
-            margin-top: 1rem; 
-            min-height: 200px; /* Reserva altura para o texto não empurrar nada */
         }
-        
-        .nome { line-height: 1; font-weight: bold; display: block; }
+        .nome-container { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            margin-bottom: 0.5rem; 
+        }
+        .nome { line-height: 1; margin: -0.1em; font-weight: bold; }
         .nayra { font-size: 2.2em; color: var(--cor-vinho); }
         .ananias { font-size: 3.2em; color: var(--cor-vinho-escuro); }
         
         .secao-principal__titulo-impacto { 
-            font-family: sans-serif; 
             font-size: 1.1rem; 
-            margin: 1rem 0 2rem; 
-            min-height: 3em; /* Reserva espaço para 2 linhas de texto */
+            font-weight: 400; 
+            color: #333; 
+            margin-top: 1rem; 
+            margin-bottom: 2rem; 
+            max-width: 90%; 
+            text-align: center; 
         }
         
-        .botao-principal { display: inline-flex; align-items: center; justify-content: center; background: var(--cor-vinho); color: #fff; padding: 1rem 2rem; border-radius: 50px; text-decoration: none; font-weight: bold; text-transform: uppercase; }
+        .botao-principal { 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            background: var(--cor-vinho); 
+            color: #fff; 
+            font-weight: 700; 
+            font-size: 0.95rem; 
+            text-transform: uppercase; 
+            padding: 1rem 2rem; 
+            border-radius: 50px; 
+            text-decoration: none; 
+            box-shadow: 0 4px 15px rgba(140, 31, 31, 0.25);
+        }
 
-        /* Esconde elementos decorativos pesados no início */
-        .menu-watermark { display: none; } 
+        /* SCROLL (Para não ficar buraco) */
+        .scroll-indicator { display: flex; flex-direction: column; align-items: center; z-index: 3; color: var(--cor-vinho-escuro); margin-top: 0.5rem; padding-bottom: 2rem; }
+        .scroll-text { font-size: 0.8rem; margin-bottom: 0.5rem; }
+        .mouse-scroll { position: relative; width: 24px; height: 40px; border: 2px solid var(--cor-vinho-escuro); border-radius: 12px; }
+        .wheel { position: absolute; top: 8px; left: 50%; width: 4px; height: 8px; background: var(--cor-vinho-escuro); border-radius: 2px; transform: translateX(-50%); }
     </style>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'">
-    
     <link rel="stylesheet" href="./assets/css/style.css" media="print" onload="this.media='all'">
 
     <noscript>
