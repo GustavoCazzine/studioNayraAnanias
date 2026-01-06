@@ -741,6 +741,33 @@ section {
     flex-direction: column;
 }
 
+/* ==========================================================================
+   ADICIONE ISSO NA SEÇÃO 8 (CATÁLOGO) PARA CORRIGIR AS IMAGENS
+   ========================================================================== */
+
+/* Define o tamanho da caixa da imagem */
+.catalogo__imagem-box {
+    width: 100%;
+    height: 260px; /* Altura fixa para alinhar todos os cards */
+    overflow: hidden;
+    border-radius: 20px 20px 0 0; /* Arredonda só em cima */
+    position: relative;
+}
+
+/* A Mágica do Object-Fit: Isso impede a imagem de esticar */
+.catalogo__imagem-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Corta o excesso sem deformar a foto */
+    object-position: center;
+    transition: transform 0.5s ease;
+}
+
+/* Efeito de Zoom suave ao passar o mouse */
+.catalogo__card:hover .catalogo__imagem-box img {
+    transform: scale(1.1);
+}
+
 .catalogo__card:hover {
     transform: translateY(-5px) scale(1.02);
     box-shadow: 0 15px 40px rgba(0,0,0,0.12);
@@ -1868,92 +1895,3 @@ section {
     opacity: 0; transform: translateY(10px); transition: opacity 0.2s ease-out, transform 0.2s ease-out;
 }
 
-/* ==========================================================================
-   17. MEDIA QUERIES GLOBAIS
-   ========================================================================== */
-
-/* --- TABLETS E CELULARES GRANDES (>= 600px) --- */
-@media (min-width: 600px) {
-    /* Cursos */
-    .curso-card__preview { flex-direction: row; text-align: left; }
-    .curso-card__imagem { width: 180px; height: 200px; }
-    .curso-card__info { align-items: flex-start; }
-    .curso-card__info h3, .curso-card__info p { text-align: left; }
-    .card-botoes-container { justify-content: flex-start; }
-    .detalhes__grid { grid-template-columns: 1fr 1fr; }
-}
-
-/* --- TABLETS PAISAGEM (>= 900px) --- */
-@media (min-width: 900px) {
-    /* Floating Button */
-    .whatsapp-button { width: 70px; height: 70px; bottom: 30px; right: 30px; }
-    
-    /* Combos */
-    .combos__container { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); max-width: 1100px; margin-left: auto; margin-right: auto; }
-    
-    /* Agendamento (Layout Sobreposto) */
-    .agendamento__card-container { max-width: 980px; display: grid; grid-template-columns: repeat(12, 1fr); align-items: center; }
-    .agendamento__imagem-wrapper { grid-column: 1 / 8; grid-row: 1; height: 100%; }
-    .agendamento__imagem-wrapper img { height: 100%; min-height: 580px; }
-    .agendamento__conteudo { grid-column: 7 / 13; grid-row: 1; z-index: 2; padding: 2.5rem; }
-}
-
-/* --- DESKTOPS PEQUENOS (>= 1024px) --- */
-@media (min-width: 1024px) {
-    /* Hero */
-    .secao-principal__fundo { height: 790px; }
-    .secao-principal__fundo__paragrafo { font-size: 48px; }
-    .textos-titulo { margin-top: 1rem; }
-    .nome.nayra { font-size: 2.5rem; }
-    .nome.ananias { font-size: 3.5rem; }
-    .secao-principal__titulo-impacto { font-size: 1.4rem; max-width: 40ch; }
-    .botao-principal { font-size: calc(var(--tamanho-botao) * 1.1); padding: 1rem 2.8rem; }
-    
-    /* Catálogo */
-    .catalogo__carrossel { width: 100%; margin-left: 0; margin-right: 0; padding: 0.5rem 0 2.5rem 0; }
-    .carrossel__trilha { justify-content: center; }
-
-    /* Cursos */
-    .curso-card__imagem { width: 140px; height: 140px; }
-    .curso-card__info h3 { font-size: 1.8rem; }
-    .detalhes__grid h4 { font-size: 1.2rem; }
-    
-    /* Feedbacks */
-    .card-feedback { width: 380px; }
-    .scroller[data-animated="true"] .scroller__inner { animation-duration: 60s; }
-    
-    /* Localização */
-    .map-container { max-width: 100%; }
-
-    /* Rodapé */
-    .site-footer__container { display: flex; justify-content: space-between; align-items: center; }
-}
-
-/* --- DESKTOPS GRANDES (>= 1200px) --- */
-@media (min-width: 1200px) {
-    /* Hero */
-    .secao-principal__foto { max-width: 250px; }
-    .nome.nayra { font-size: 3rem; }
-    .nome.ananias { font-size: 4rem; }
-    .secao-principal__titulo-impacto { font-size: 1.5rem; }
-
-    /* Agendamento */
-    .agendamento__card-container { max-width: 1100px; }
-    .agendamento__conteudo { padding: 3.5rem; }
-}
-
-/* --- TELAS EXTRA LARGE / TVS (>= 1600px) --- */
-@media (min-width: 1600px) {
-    /* Hero */
-    .secao-principal__fundo { height: 910px; }
-    .secao-principal__fundo__paragrafo { font-size: 65px; }
-    .secao-principal__foto { max-width: 300px; }
-    .nome.nayra { font-size: 3.5rem; }
-    .nome.ananias { font-size: 5rem; }
-    .secao-principal__titulo-impacto { font-size: 1.8rem; }
-
-    /* Agendamento */
-    .agendamento__card-container { max-width: 1200px; }
-    .agendamento__imagem-wrapper img { min-height: 620px; }
-    .agendamento__conteudo { padding: 4rem }
-}
