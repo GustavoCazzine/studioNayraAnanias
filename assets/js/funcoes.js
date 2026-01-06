@@ -6,7 +6,7 @@ const CONFIG_SITE = {
     social: {
         whatsapp: "5519999670165", // Apenas números
         instagram: "https://instagram.com/nayraananias", // Seu link real
-        maps_google: "https://goo.gl/maps/SEU_LINK_AQUI", // Link curto do Google Maps
+        maps_google: "https://maps.app.goo.gl/6kBuc2u9k7DqHvrP9", // Link curto do Google Maps
         waze: "https://waze.com/ul?q=Rua+Quinze+de+Novembro+567+Piracicaba"
     },
     enderecos: {
