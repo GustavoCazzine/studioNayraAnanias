@@ -371,46 +371,65 @@ function alternarServico(tipo) {
 
 // 3. Renderização dos Cards (Visual Novo)
 function mostrarServicos(tipo) {
-    const container = document.getElementById("catalogo-carrossel");
-    if (!container) return;
+    const container = document.getElementById('catalogo-carrossel');
+    const botoes = document.querySelectorAll('.toggle-item');
     
-    container.innerHTML = "";
-    const servicos = tipo === "sobrancelhas" ? servicosSobrancelhas : servicosCilios;
+    if (!container) return;
 
-    servicos.forEach((servico) => {
-        const card = document.createElement("div");
-        card.className = "catalogo__card";
-        card.setAttribute("role", "group");
+    // Atualiza visual dos botões
+    botoes.forEach(btn => btn.classList.remove('ativo'));
+    if (tipo === 'sobrancelhas') {
+        botoes[0].classList.add('ativo');
+        document.querySelector('.toggle-container').setAttribute('data-active', 'sobrancelhas');
+    } else {
+        botoes[1].classList.add('ativo');
+        document.querySelector('.toggle-container').setAttribute('data-active', 'cilios');
+    }
+
+    // Seleciona a lista certa
+    const lista = tipo === 'sobrancelhas' ? servicosSobrancelhas : servicosCilios;
+
+    container.innerHTML = '';
+
+    lista.forEach(servico => {
+        // --- A MÁGICA ACONTECE AQUI ---
+        // Cria o caminho da imagem mobile automaticamente
+        const imgMobile = servico.imagem.replace('.avif', '_mobile.avif');
+
+        const card = document.createElement('div');
+        card.className = 'catalogo__card';
         
-        // HTML DO CARD NOVO: Imagem Grande + Tags Sobrepostas + Texto Limpo
-        card.innerHTML = `
-            <div style="position: relative;">
-                <img src="${servico.imagem}" alt="${servico.titulo}" style="width: 100%; height: 220px; object-fit: cover; display: block;">
-                
-                <div style="position: absolute; bottom: 10px; left: 10px; display: flex; flex-wrap: wrap; gap: 5px;">
-                     ${servico.caracteristicas.slice(0, 2).map(item => 
-                        `<span style="background: rgba(255,255,255,0.95); color: #333; font-size: 0.7rem; padding: 4px 10px; border-radius: 12px; font-weight: 700; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">${item}</span>`
-                     ).join("")}
-                </div>
-            </div>
+        // Link dinâmico do Zap
+        const textoZap = `Olá, Nayra! Gostaria de saber mais sobre o procedimento: ${servico.titulo}`;
+        const linkZap = CONFIG_SITE.gerarLinkZap(textoZap);
 
-            <div class="catalogo__card__conteudo">
-                <h3 class="catalogo__card__titulo">${servico.titulo}</h3>
-                <p class="catalogo__card__descricao">
-                    ${servico.descricao}
-                </p>
-                <div class="catalogo__cta">
-                    <a href="https://wa.me/5519999670165?text=Olá!%20Amei%20o%20${encodeURIComponent(servico.titulo)}%20e%20gostaria%20de%20agendar." target="_blank">Agendar Horário</a>
+        card.innerHTML = `
+            <div class="catalogo__imagem-box">
+                <img 
+                    src="${servico.imagem}" 
+                    srcset="${imgMobile} 480w, ${servico.imagem} 800w"
+                    sizes="(max-width: 768px) 90vw, 350px"
+                    alt="${servico.titulo}" 
+                    loading="lazy"
+                    width="350"
+                    height="260"
+                >
+            </div>
+            <div class="catalogo__conteudo">
+                <h3>${servico.titulo}</h3>
+                <p>${servico.descricao}</p>
+                <div class="catalogo__tags">
+                    ${servico.caracteristicas.map(tag => `<span>${tag}</span>`).join('')}
+                </div>
+                <div class="catalogo__acao">
+                    <a href="${linkZap}" target="_blank" class="catalogo__cta">
+                        Agendar <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
             </div>
         `;
         container.appendChild(card);
     });
-
-    // Reinicia eventos de scroll e click
-    aplicarSnapHighlight();
-    inicializarNavegacao(); 
-    container.scrollTo({ left: 0, behavior: 'smooth' });
 }
 
 // 4. Navegação das Setas
@@ -494,23 +513,35 @@ function renderizarCursos() {
     container.innerHTML = '';
 
     cursos.forEach(curso => {
+        // --- A MÁGICA ---
+        const imgMobile = curso.imagem.replace('.avif', '_mobile.avif');
+
         const cardDiv = document.createElement('div');
         cardDiv.className = 'curso-card';
 
-        // Gera as tags HTML
         const tagsHTML = curso.tags ? curso.tags.map(tag => `<span class="curso-tag">${tag}</span>`).join('') : '';
         const textoZap = `Olá, Nayra! Quero saber próximas turmas do ${curso.titulo}`;
         const linkZap = CONFIG_SITE.gerarLinkZap(textoZap);
+        const textoZapInscricao = `Quero me inscrever no curso ${curso.titulo}`;
+        const linkZapInscricao = CONFIG_SITE.gerarLinkZap(textoZapInscricao);
 
         cardDiv.innerHTML = `
             <div class="curso-card__preview">
                 <div class="curso-card__imagem-container">
-                    <img src="${curso.imagem}" alt="Curso ${curso.titulo}" class="curso-card__imagem" loading="lazy">
+                    <img 
+                        src="${curso.imagem}" 
+                        srcset="${imgMobile} 480w, ${curso.imagem} 800w"
+                        sizes="(max-width: 768px) 100vw, 240px"
+                        alt="Curso ${curso.titulo}" 
+                        class="curso-card__imagem" 
+                        loading="lazy"
+                        width="240"
+                        height="180"
+                    >
                 </div>
 
                 <div class="curso-card__info">
                     <div class="curso-tags-header">${tagsHTML}</div>
-                    
                     <h3>${curso.titulo}</h3>
                     <p>${curso.chamada}</p>
                     
@@ -519,8 +550,8 @@ function renderizarCursos() {
                             Ver Grade Completa <i class="fas fa-chevron-down" style="margin-left:5px"></i>
                         </button>
                         
-                       <a href="${linkZap}" target="_blank" class="botao-principal" ...>
-                        Falar com a Professora
+                        <a href="${linkZap}" target="_blank" class="botao-principal" style="padding: 0.8rem 1.5rem; font-size: 0.85rem;">
+                            Falar com a Professora
                         </a>
                     </div>
                 </div>
@@ -529,37 +560,28 @@ function renderizarCursos() {
             <div class="curso-card__detalhes">
                 <div class="detalhes-wrapper">
                     <div class="detalhes__grid">
-                        
                         <div class="detalhe-bloco">
                             <h4><i class="fas fa-bullseye"></i> Para Quem é?</h4>
                             <p style="font-size:0.95rem; line-height:1.5; color:#555;">${curso.conteudo.para_quem}</p>
                         </div>
-
                         <div class="detalhe-bloco">
                             <h4><i class="fas fa-book-open"></i> O Que Você Vai Aprender</h4>
-                            <ul>
-                                ${curso.conteudo.aprendizado.map(item => `<li><i class="fas fa-check"></i> ${item}</li>`).join('')}
-                            </ul>
+                            <ul>${curso.conteudo.aprendizado.map(item => `<li><i class="fas fa-check"></i> ${item}</li>`).join('')}</ul>
                         </div>
-
                         <div class="detalhe-bloco ouro">
                             <h4><i class="fas fa-gift"></i> Incluso no Investimento</h4>
-                            <ul>
-                                ${curso.conteudo.incluso.map(item => `<li><i class="fas fa-star"></i> ${item}</li>`).join('')}
-                            </ul>
+                            <ul>${curso.conteudo.incluso.map(item => `<li><i class="fas fa-star"></i> ${item}</li>`).join('')}</ul>
                         </div>
-
                         <div class="detalhe-bloco">
                             <h4><i class="fas fa-clock"></i> Duração</h4>
                             <p style="font-size: 1.1rem; color: var(--cor-vinho); font-weight: bold;">${curso.conteudo.duracao}</p>
                         </div>
                     </div>
-
                     <div class="detalhes__cta-final">
                         <p style="margin-bottom: 1rem; font-size: 0.9rem; color: #666;">
-                            <i class="fas fa-exclamation-circle" style="color:var(--cor-dourado)"></i> Vagas limitadas para garantir atenção total a cada aluna.
+                            <i class="fas fa-exclamation-circle" style="color:var(--cor-dourado)"></i> Vagas limitadas.
                         </p>
-                        <a href="https://wa.me/5519999670165?text=Quero%20me%20inscrever%20no%20curso%20${encodeURIComponent(curso.titulo)}" class="botao-principal" target="_blank">
+                        <a href="${linkZapInscricao}" class="botao-principal" target="_blank">
                             Garantir Minha Vaga
                         </a>
                     </div>
@@ -605,13 +627,13 @@ function renderizarCombos() {
     container.innerHTML = '';
 
     combos.forEach(combo => {
+        // --- A MÁGICA ---
+        const imgMobile = combo.imagem.replace('.avif', '_mobile.avif');
+
         const cardDiv = document.createElement('div');
         cardDiv.className = 'combo-card';
-        if (combo.destaque) {
-            cardDiv.classList.add('destaque');
-        }
+        if (combo.destaque) cardDiv.classList.add('destaque');
 
-        // Definindo uma "Tag de Valor" baseada no destaque
         const subtextoValor = combo.destaque ? "Melhor Custo-Benefício" : "Condição Especial";
         const textoZap = `Olá, Nayra! Amei o ${combo.nome} e gostaria de aproveitar essa condição especial.`;
         const linkZap = CONFIG_SITE.gerarLinkZap(textoZap);
@@ -620,21 +642,25 @@ function renderizarCombos() {
             ${combo.destaque ? `<div class="combo-card__badge">${combo.tag || 'VIP'}</div>` : ''}
             
             <div class="combo-card__imagem">
-                <img src="${combo.imagem}" alt="${combo.nome}" loading="lazy">
+                <img 
+                    src="${combo.imagem}" 
+                    srcset="${imgMobile} 480w, ${combo.imagem} 800w"
+                    sizes="(max-width: 768px) 90vw, 350px"
+                    alt="${combo.nome}" 
+                    loading="lazy"
+                    width="350"
+                    height="240"
+                >
             </div>
 
             <div class="combo-card__conteudo">
                 <h3 class="combo-card__title">${combo.nome}</h3>
-                
                 <p class="combo-card__description">${combo.descricao}</p>
 
-                <div class="combo-card__divisor">
-                    <span>♦</span> </div>
+                <div class="combo-card__divisor"><span>♦</span></div>
 
                 <ul class="combo-card__servicos">
-                    ${combo.servicos.map(servico => `
-                        <li><i class="fas fa-check-circle"></i> ${servico}</li>
-                    `).join('')}
+                    ${combo.servicos.map(servico => `<li><i class="fas fa-check-circle"></i> ${servico}</li>`).join('')}
                 </ul>
 
                 <p style="font-size: 0.8rem; color: var(--cor-vinho); margin-bottom: 5px; font-weight: bold;">
@@ -642,11 +668,10 @@ function renderizarCombos() {
                 </p>
 
                 <a href="${linkZap}" class="combo-card__cta" target="_blank">
-                    ${combo.destaque ? 'Quero Ser VIP' : 'Escolher Este'}
+                    ${combo.destaque ? 'Quero Ser VIP' : 'Agendar Combo'}
                 </a>
             </div>
         `;
-
         container.appendChild(cardDiv);
     });
 }
