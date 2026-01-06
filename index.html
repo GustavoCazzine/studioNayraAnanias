@@ -44,7 +44,11 @@
     <link rel="sitemap" href="/sitemap.xml" type="application/xml">
 
     <!-- Preload de Imagens Críticas -->
-    <link rel="preload" href="assets/img/Foto_Nayra.avif" as="image" imagesrcset="assets/img/Foto_Nayra_mobile.avif 480w, assets/img/Foto_Nayra.avif 800w" imagesizes="(max-width: 768px) 90vw, 400px">
+    <!-- Preload Mobile -->
+    <link rel="preload" href="assets/img/Foto_Nayra_mobile.avif" as="image" media="(max-width: 768px)">
+
+    <!-- Preload Desktop -->
+    <link rel="preload" href="assets/img/Foto_Nayra.avif" as="image" media="(min-width: 769px)">
 
     <!-- Estilos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'">
