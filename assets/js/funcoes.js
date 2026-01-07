@@ -462,7 +462,8 @@ function mostrarServicos(tipo) {
                 <h3 class="catalogo__card__titulo">${servico.titulo}</h3>
                 <p class="catalogo__card__descricao">${servico.descricao}</p>
                 
-                <a href="${linkZap}" target="_blank" class="botao-principal catalogo-btn">
+                <a href="${linkZap}" target="_blank" class="botao-principal catalogo-btn" data-name="${servico.titulo}"       
+                    data-category="Serviço">>
                     AGENDAR HORÁRIO
                 </a>
             </div>
@@ -601,7 +602,8 @@ function renderizarCombos() {
                     ${subtextoValor}
                 </p>
 
-                <a href="${linkZap}" class="combo-card__cta" target="_blank">
+                <a href="${linkZap}" class="combo-card__cta" target="_blank" data-name="${combo.nome}"
+                    data-category="Combo">>
                     ${combo.destaque ? 'Quero Ser VIP' : 'Agendar Combo'}
                 </a>
             </div>
@@ -659,7 +661,8 @@ function renderizarCursos() {
                             Ver Grade Completa <i class="fas fa-chevron-down" style="margin-left:5px"></i>
                         </button>
                         
-                        <a href="${linkZap}" target="_blank" class="botao-principal" style="padding: 0.8rem 1.5rem; font-size: 0.85rem;">
+                        <a href="${linkZap}" target="_blank" class="botao-principal" style="padding: 0.8rem 1.5rem; font-size: 0.85rem;" data-name="${curso.titulo}"
+   data-category="Curso">>
                             Falar com a Professora
                         </a>
                     </div>
@@ -690,7 +693,8 @@ function renderizarCursos() {
                         <p style="margin-bottom: 1rem; font-size: 0.9rem; color: #666;">
                             <i class="fas fa-exclamation-circle" style="color:var(--cor-dourado)"></i> Vagas limitadas.
                         </p>
-                        <a href="${linkZapInscricao}" class="botao-principal" target="_blank">
+                        <a href="${linkZapInscricao}" class="botao-principal" target="_blank" data-name="${curso.titulo}"
+   data-category="Curso">>
                             Garantir Minha Vaga
                         </a>
                     </div>
@@ -879,31 +883,29 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 /* ========================================================================== */
-/* =================== RASTREAMENTO FACEBOOK (PIXEL) ==================== */
+/* =================== RASTREAMENTO FACEBOOK (AVANÇADO) =================== */
 /* ========================================================================== */
 
-/**
- * Monitora TODOS os cliques no site.
- * Se o clique for em um link de WhatsApp (gerado pelo JS ou HTML),
- * dispara o evento 'Contact' para o Facebook Ads.
- */
 document.addEventListener('click', function(e) {
-    // 1. Encontra o elemento <a> clicado (mesmo se clicar no ícone dentro dele)
     const link = e.target.closest('a');
 
-    // 2. Se não clicou em link ou o link não tem href, ignora
     if (!link || !link.href) return;
 
-    // 3. Verifica se o link leva para o WhatsApp
-    // (Seus links gerados começam com wa.me ou api.whatsapp.com)
     if (link.href.includes('wa.me') || link.href.includes('whatsapp.com')) {
         
-        // 4. Dispara o evento para o Facebook
+        // 1. Tenta pegar o Nome e a Categoria das etiquetas que criamos
+        // Se não tiver etiqueta (ex: botão flutuante), usa "Geral"
+        const nomeItem = link.getAttribute('data-name') || 'Contato Geral';
+        const categoriaItem = link.getAttribute('data-category') || 'Institucional';
+        
+        // 2. Dispara o evento com os detalhes
         if (typeof fbq !== 'undefined') {
-            fbq('track', 'Contact');
+            fbq('track', 'Contact', {
+                content_name: nomeItem,     // Ex: "Brow Lamination"
+                content_category: categoriaItem // Ex: "Serviço"
+            });
             
-            // Log para você ver no Console (F12) que funcionou
-            console.log('✅ Pixel Facebook disparado: Contact');
+            console.log(`✅ Pixel disparado: ${categoriaItem} - ${nomeItem}`);
         }
     }
 });
