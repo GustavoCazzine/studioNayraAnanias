@@ -883,29 +883,39 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 /* ========================================================================== */
-/* =================== RASTREAMENTO FACEBOOK (AVANÇADO) =================== */
+/* =================== RASTREAMENTO FACEBOOK (MASTER) ===================== */
 /* ========================================================================== */
 
 document.addEventListener('click', function(e) {
     const link = e.target.closest('a');
 
+    // Se não é link ou não tem href, ignora
     if (!link || !link.href) return;
 
+    // Pega os dados da etiqueta (se existirem)
+    const nomeItem = link.getAttribute('data-name') || 'Item Geral';
+    const categoriaItem = link.getAttribute('data-category') || 'Geral';
+
+    // --- CENÁRIO 1: WHATSAPP (Contato) ---
     if (link.href.includes('wa.me') || link.href.includes('whatsapp.com')) {
-        
-        // 1. Tenta pegar o Nome e a Categoria das etiquetas que criamos
-        // Se não tiver etiqueta (ex: botão flutuante), usa "Geral"
-        const nomeItem = link.getAttribute('data-name') || 'Contato Geral';
-        const categoriaItem = link.getAttribute('data-category') || 'Institucional';
-        
-        // 2. Dispara o evento com os detalhes
         if (typeof fbq !== 'undefined') {
             fbq('track', 'Contact', {
-                content_name: nomeItem,     // Ex: "Brow Lamination"
-                content_category: categoriaItem // Ex: "Serviço"
+                content_name: nomeItem,
+                content_category: categoriaItem
             });
-            
-            console.log(`✅ Pixel disparado: ${categoriaItem} - ${nomeItem}`);
+            console.log(`✅ Pixel (Contact): ${categoriaItem} - ${nomeItem}`);
+        }
+    }
+    
+    // --- CENÁRIO 2: MAPAS (Localização) ---
+    // Verifica se o link tem waze, maps.google ou google.com/maps
+    else if (link.href.includes('waze.com') || link.href.includes('maps')) {
+        if (typeof fbq !== 'undefined') {
+            fbq('track', 'FindLocation', {
+                content_name: nomeItem,     // Vai mostrar "Waze" ou "Google Maps"
+                content_category: 'Rota'
+            });
+            console.log(`📍 Pixel (FindLocation): ${nomeItem}`);
         }
     }
 });
