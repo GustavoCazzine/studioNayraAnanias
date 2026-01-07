@@ -15,7 +15,7 @@ const CONFIG_SITE = {
     },
     enderecos: {
         fisico: "R. XV de Novembro, 567 - Centro, Piracicaba - SP",
-        telefone_visivel: "(19) 99996-7016"
+        telefone_visivel: "(19) 99967-0165"
     },
     gerarLinkZap: function(texto = "") {
         const mensagem = texto ? `?text=${encodeURIComponent(texto)}` : "";
@@ -220,15 +220,26 @@ const cursos = [
         }
     },
     { 
-        titulo: "Especialização Volume Brasileiro", 
-        chamada: "A técnica mais pedida nos studios. Aumente seu ticket médio e entregue o volume e a retenção que suas clientes sonham.",
+        titulo: "Especializações em Tecnológicos", 
+        chamada: "As técnicas mais pedidas nos studios. Aumente seu ticket médio e entregue o volume e a retenção que suas clientes sonham.",
         imagem: "assets/img/cursos/cilios.avif",
         tags: ["Avançado", "Alta Procura"],
         conteudo: {
-            "para_quem": "Lash Designers que já dominam o clássico e querem se destacar da concorrência oferecendo técnicas avançadas.",
-            "aprendizado": ["Dominando os fios tecnológicos (Y, W)", "Capping e Cristalização para retenção máxima", "Efeitos: Delineado, Fox e Boneca", "Correção de simetria", "Fotografia para vender no Instagram"],
-            "incluso": ["Apostila de Especialização", "Certificado de Especialista", "Lista de Fornecedores Exclusivos", "Mentoria de Carreira"],
-            "duracao": "1 Dia Intensivo (Hands-on)"
+            para_quem: "Lash Designers que já dominam o clássico e querem se destacar da concorrência oferecendo técnicas avançadas.",
+            aprendizado: [
+            "Domínio dos fios tecnológicos (Y e W)",
+            "Capping e Cristalização para retenção máxima",
+            "Efeitos de Visagismo: Delineado, Fox e Boneca",
+            "Correção de simetria e mapeamento",
+            "Fotografia estratégica para vender no Instagram"
+            ],
+            incluso: [
+            "Apostila de Especialização Completa",
+            "Certificado de Especialista",
+            "Lista de Fornecedores Exclusivos",
+            "Mentoria de Carreira"
+            ],
+            duracao: "1 Dia Intensivo (Hands-on)"
         }
     },
     { 
