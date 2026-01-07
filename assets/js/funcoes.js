@@ -879,6 +879,36 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 /* ========================================================================== */
+/* =================== RASTREAMENTO FACEBOOK (PIXEL) ==================== */
+/* ========================================================================== */
+
+/**
+ * Monitora TODOS os cliques no site.
+ * Se o clique for em um link de WhatsApp (gerado pelo JS ou HTML),
+ * dispara o evento 'Contact' para o Facebook Ads.
+ */
+document.addEventListener('click', function(e) {
+    // 1. Encontra o elemento <a> clicado (mesmo se clicar no ícone dentro dele)
+    const link = e.target.closest('a');
+
+    // 2. Se não clicou em link ou o link não tem href, ignora
+    if (!link || !link.href) return;
+
+    // 3. Verifica se o link leva para o WhatsApp
+    // (Seus links gerados começam com wa.me ou api.whatsapp.com)
+    if (link.href.includes('wa.me') || link.href.includes('whatsapp.com')) {
+        
+        // 4. Dispara o evento para o Facebook
+        if (typeof fbq !== 'undefined') {
+            fbq('track', 'Contact');
+            
+            // Log para você ver no Console (F12) que funcionou
+            console.log('✅ Pixel Facebook disparado: Contact');
+        }
+    }
+});
+
+/* ========================================================================== */
 /* ================= INICIALIZAÇÃO GERAL (DOM READY) ================== */
 /* ========================================================================== */
 
