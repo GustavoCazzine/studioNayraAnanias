@@ -9,7 +9,7 @@
 const CONFIG_SITE = {
     social: {
         whatsapp: "5519999670165",
-        instagram: "https://instagram.com/nayraananias",
+        instagram: "https://www.instagram.com/studionayraananias/",
         maps_google: "https://maps.app.goo.gl/6kBuc2u9k7DqHvrP9",
         waze: "https://waze.com/ul?q=Rua+Quinze+de+Novembro+567+Piracicaba"
     },
